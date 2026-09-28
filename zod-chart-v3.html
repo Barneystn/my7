@@ -1,0 +1,1577 @@
+<!doctype html>
+<html lang="fa" data-theme="light">
+<head>
+<!-- skill:chrome -->
+<style>
+/* Credit line — bottom-right */
+.design-ui-credit {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  font: 11px/1 system-ui, sans-serif;
+  color: rgba(128,128,128,0.5);
+  pointer-events: none;
+  z-index: 2147483647;
+  transition: opacity 0.4s ease;
+  user-select: none;
+  letter-spacing: 0.02em;
+}
+
+/* Hide chrome on touch devices */
+@media (hover: none) {
+  .design-ui-credit { display: none; }
+}
+
+/* Print fixes */
+@media print {
+  * {
+    transition: none !important;
+    animation: none !important;
+    box-shadow: none !important;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  .design-ui-credit { display: none !important; }
+}
+
+</style>
+<script>
+(function () {
+    // Design-ui pages are single compositions, so the whole body is editable.
+    function markEditable() {
+        document.body.classList.add('artifact-editable');
+    }
+
+    // Credit badge with idle-fade. Hover devices only.
+    function initChromeUI() {
+        if (!matchMedia('(hover: hover)').matches) return;
+
+        var credit = document.createElement('div');
+        credit.className = 'design-ui-credit';
+        credit.setAttribute('aria-hidden', 'true');
+        credit.innerHTML = '\u{1F49C} by ClickUp Brain';
+        document.body.appendChild(credit);
+
+        var timer = null;
+        var fade = function (out) { credit.style.opacity = out ? '0' : ''; };
+        fade(true);
+        var show = function () {
+            fade(false);
+            clearTimeout(timer);
+            timer = setTimeout(function () { fade(true); }, 3000);
+        };
+        document.addEventListener('mousemove', show);
+        show();
+    }
+
+    function init() {
+        markEditable();
+        initChromeUI();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+})();
+
+</script>
+<!-- /skill:chrome -->
+<!-- skill:libraries -->
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.383.0/dist/umd/lucide.min.js" integrity="sha384-wHFvAtjmgnkA2PJcMsDaCgdipf7X7YV44X/igbLHpvGiq6T5/PvFKl93grpvtbQT" crossorigin="anonymous"></script>
+<script>document.addEventListener("DOMContentLoaded",()=>lucide.createIcons())</script>
+<!-- /skill:libraries -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ZOD/USDT · چارت</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: oklch(98.9% 0.003 255);
+  --surface: oklch(96.8% 0.005 255);
+  --line: oklch(92.5% 0.006 255);
+  --line-strong: oklch(87% 0.008 255);
+  --text: oklch(24% 0.016 255);
+  --muted: oklch(53% 0.016 255);
+  --tool: oklch(38% 0.016 255);
+  --accent: oklch(50% 0.19 264);
+  --accent-soft: oklch(94.5% 0.035 264);
+  --up: oklch(62% 0.12 172);
+  --up-soft: oklch(90% 0.05 172);
+  --up-ink: oklch(42% 0.1 172);
+  --down: oklch(60% 0.19 23);
+  --down-soft: oklch(91% 0.045 23);
+  --down-ink: oklch(45% 0.16 23);
+  --ema: oklch(55% 0.19 300);
+  --shadow: oklch(30% 0.03 255 / .28);
+  --ease: cubic-bezier(0.22,1,0.36,1);
+  --z-panel: 20; --z-edit: 25; --z-tip: 50; --z-pop: 40;
+}
+[data-theme="dark"]{
+  --bg: oklch(18.5% 0.012 262);
+  --surface: oklch(23% 0.014 262);
+  --line: oklch(26.5% 0.014 262);
+  --line-strong: oklch(33% 0.016 262);
+  --text: oklch(91% 0.008 262);
+  --muted: oklch(66% 0.014 262);
+  --tool: oklch(80% 0.01 262);
+  --accent: oklch(70% 0.15 264);
+  --accent-soft: oklch(30% 0.07 264);
+  --up: oklch(70% 0.12 172);
+  --up-soft: oklch(31% 0.05 172);
+  --up-ink: oklch(78% 0.11 172);
+  --down: oklch(66% 0.18 23);
+  --down-soft: oklch(31% 0.06 23);
+  --down-ink: oklch(78% 0.13 23);
+  --ema: oklch(72% 0.15 300);
+  --shadow: oklch(8% 0.01 262 / .6);
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:Vazirmatn,system-ui,sans-serif;font-size:14px;overflow:hidden;transition:background .25s var(--ease)}
+button,input,select,textarea{font:inherit;color:inherit}
+.app{display:grid;grid-template-rows:52px 1fr 32px;grid-template-columns:52px 1fr;height:100vh;height:100dvh;direction:ltr}
+
+header{grid-column:1/-1;display:flex;align-items:center;gap:16px;padding:0 12px;border-bottom:1px solid var(--line);min-width:0}
+.sym{display:flex;align-items:center;gap:10px;white-space:nowrap}
+.mark{width:28px;height:28px;border-radius:8px;background:var(--text);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:12px;letter-spacing:.02em}
+.sym b{font-size:15px;font-weight:700;letter-spacing:.01em}
+.sym small{color:var(--muted);font-size:12px}
+.vsep{width:1px;height:22px;background:var(--line)}
+.tfs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.hbtn,.tfs button{border:0;background:none;padding:6px 10px;border-radius:6px;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s var(--ease),color .15s var(--ease);font-variant-numeric:tabular-nums;white-space:nowrap}
+.hbtn:hover,.tfs button:hover{background:var(--surface);color:var(--text)}
+.tfs button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent)}
+.ind{display:flex;align-items:center;gap:6px}
+.ind .dot{width:8px;height:8px;border-radius:50%;background:var(--muted);transition:background .15s var(--ease)}
+.ind[aria-pressed="true"]{color:var(--text)}
+.ind[aria-pressed="true"] .dot{background:var(--ema)}
+.theme{width:34px;height:34px;padding:0;display:grid;place-items:center;color:var(--tool)}
+.theme svg{width:18px;height:18px}
+.i-moon,.i-sun{place-items:center}
+.i-moon{display:grid}.i-sun{display:none}
+[data-theme="dark"] .i-sun{display:grid} [data-theme="dark"] .i-moon{display:none}
+button:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.quote{margin-left:auto;display:flex;align-items:baseline;gap:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.quote .px{font-size:19px;font-weight:700;transition:color .3s var(--ease)}
+.quote .chg{font-size:13px;font-weight:500}
+.up{color:var(--up)} .down{color:var(--down)}
+
+.toolbar{grid-row:2/4;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0;border-right:1px solid var(--line);overflow-y:auto;scrollbar-width:none}
+.sep{width:24px;height:1px;background:var(--line);margin:6px 0;flex:none}
+.tool{position:relative;flex:none;width:40px;height:40px;border:0;background:none;border-radius:8px;display:grid;place-items:center;cursor:pointer;color:var(--tool);transition:background .15s var(--ease),color .15s var(--ease)}
+.tool:hover{background:var(--surface)}
+.tool[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent)}
+.tool svg{width:22px;height:22px}
+.tip{position:fixed;left:0;top:0;background:var(--text);color:var(--bg);padding:6px 10px;border-radius:6px;font-size:12px;white-space:nowrap;direction:rtl;pointer-events:none;z-index:var(--z-tip);opacity:0;transition:opacity .15s var(--ease)}
+.tip.on{opacity:1}
+
+.chart{position:relative;min-width:0;min-height:0;overflow:hidden}
+canvas{display:block;touch-action:none;user-select:none;-webkit-user-select:none}
+.legend{position:absolute;left:12px;top:10px;pointer-events:none;font-size:12.5px;line-height:1.6;font-variant-numeric:tabular-nums;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.legend .l1{color:var(--text);font-weight:600;font-size:13.5px}
+.legend .l1 span{color:var(--muted);font-weight:400}
+.legend .l2 i,.legend .l3 i{font-style:normal;color:var(--muted);margin-right:3px}
+.legend .l2 em{font-style:normal;margin-right:10px}
+.legend .l3{color:var(--ema)}
+.legend .l3 em{font-style:normal}
+
+.txt-edit{position:absolute;z-index:var(--z-edit);min-width:160px;padding:3px 6px;border:1.5px solid var(--accent);border-radius:5px;background:var(--bg);box-shadow:0 0 0 3px var(--accent-soft);outline:none;resize:none;overflow:hidden;line-height:1.35}
+
+/* floating drawing toolbar */
+.ftb{position:absolute;z-index:var(--z-panel);display:flex;align-items:center;gap:1px;padding:3px;background:var(--bg);border:1px solid var(--line-strong);border-radius:9px;box-shadow:0 8px 24px -10px var(--shadow);direction:ltr;animation:pin .22s var(--ease)}
+.ftb[hidden]{display:none}
+.fb{position:relative;flex:none;width:32px;height:32px;border:0;background:none;border-radius:6px;display:grid;place-items:center;cursor:pointer;color:var(--tool);transition:background .12s var(--ease),color .12s var(--ease)}
+.fb:hover{background:var(--surface)}
+.fb[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent)}
+.fb svg{width:18px;height:18px}
+.fb .bar{position:absolute;left:8px;right:8px;bottom:4px;height:3px;border-radius:2px}
+.fb.has-bar svg{transform:translateY(-2px)}
+.fb.wide{width:auto;padding:0 8px;display:flex;gap:6px;font-size:12px;font-weight:500;font-variant-numeric:tabular-nums}
+.fb.wide svg{width:20px}
+.fb.grip{width:16px;cursor:grab;color:var(--muted)}
+.fb.grip:active{cursor:grabbing}
+.fb.danger:hover{background:var(--down-soft);color:var(--down)}
+.fsep{width:1px;height:20px;background:var(--line);margin:0 3px;flex:none}
+
+/* popover */
+.pop{position:fixed;left:0;top:0;z-index:var(--z-pop);background:var(--bg);border:1px solid var(--line-strong);border-radius:10px;box-shadow:0 12px 32px -12px var(--shadow);padding:10px;direction:rtl;animation:pin .18s var(--ease)}
+.pop[hidden]{display:none}
+.pal{display:grid;grid-template-columns:repeat(9,20px);gap:4px;direction:ltr}
+.pal button{width:20px;height:20px;padding:0;border-radius:4px;border:1px solid oklch(40% 0.02 255 / .15);cursor:pointer;transition:transform .12s var(--ease)}
+.pal button:hover{transform:scale(1.15)}
+.pal button[aria-pressed="true"]{outline:2px solid var(--accent);outline-offset:1px}
+.pal .gap{grid-column:1/-1;height:2px}
+.pop-row{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:12px;color:var(--muted)}
+.pop-row input[type=range]{flex:1;accent-color:var(--accent)}
+.pop-row output{min-width:34px;text-align:left;font-variant-numeric:tabular-nums;color:var(--text)}
+.pop-auto{margin-top:10px;width:100%;border:1px solid var(--line-strong);background:none;border-radius:6px;padding:5px 8px;cursor:pointer;font-size:12px}
+.pop-auto[aria-pressed="true"]{border-color:var(--accent);color:var(--accent)}
+.plist{display:flex;flex-direction:column;min-width:128px}
+.plist button{display:flex;align-items:center;gap:10px;border:0;background:none;padding:6px 8px;border-radius:6px;cursor:pointer;font-size:12.5px;direction:ltr;font-variant-numeric:tabular-nums}
+.plist button:hover{background:var(--surface)}
+.plist button[aria-pressed="true"]{color:var(--accent);background:var(--accent-soft)}
+.plist svg{width:44px;height:14px}
+.chk{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text);cursor:pointer}
+.chk input,.f-check input,.f-row input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px;margin:0}
+
+/* settings panel */
+.panel{position:absolute;top:12px;right:88px;width:304px;max-height:calc(100% - 24px);display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--line-strong);border-radius:10px;box-shadow:0 10px 30px -12px var(--shadow);direction:rtl;z-index:var(--z-panel);animation:pin .28s var(--ease)}
+.panel[hidden]{display:none}
+@keyframes pin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.p-head{display:flex;align-items:center;gap:8px;padding:12px 14px 6px}
+.p-head b{font-size:14px}
+.chip{font-size:11.5px;padding:2px 8px;border-radius:99px;font-weight:500}
+.chip.long{background:var(--up-soft);color:var(--up-ink)}
+.chip.short{background:var(--down-soft);color:var(--down-ink)}
+.chip[hidden]{display:none}
+.p-head .x{margin-right:auto;border:0;background:none;width:28px;height:28px;border-radius:6px;cursor:pointer;color:var(--muted);font-size:18px;line-height:1}
+.p-head .x:hover{background:var(--surface);color:var(--text)}
+.p-tabs{display:flex;gap:16px;padding:0 14px;border-bottom:1px solid var(--line)}
+.p-tabs button{border:0;background:none;padding:8px 0;margin-bottom:-1px;border-bottom:2px solid transparent;cursor:pointer;color:var(--muted);font-size:13px;font-weight:500;transition:color .15s var(--ease),border-color .15s var(--ease)}
+.p-tabs button:hover{color:var(--text)}
+.p-tabs button[aria-selected="true"]{color:var(--text);border-bottom-color:var(--accent)}
+.p-body{padding:6px 14px 10px;overflow-y:auto;flex:1}
+.f-row{display:flex;align-items:center;gap:12px;min-height:40px}
+.f-lab{flex:1;font-size:13px}
+.f-col{flex-direction:column;align-items:stretch;gap:6px;padding:8px 0}
+.f-ctrl{display:flex;align-items:center;gap:6px;direction:ltr}
+.f-row input[type=number],.f-row input[type=datetime-local],.f-row select{width:148px;padding:6px 8px;border:1px solid var(--line-strong);border-radius:6px;background:var(--bg);font-size:13px;direction:ltr;text-align:left;font-variant-numeric:tabular-nums;transition:border-color .15s var(--ease)}
+.f-row select{direction:rtl;text-align:right;cursor:pointer}
+.f-row textarea{width:100%;min-height:64px;padding:8px;border:1px solid var(--line-strong);border-radius:6px;background:var(--bg);font-size:13px;resize:vertical}
+.f-row input:focus,.f-row textarea:focus,.f-row select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.f-row input[aria-invalid="true"]{border-color:var(--down);box-shadow:0 0 0 3px var(--down-soft)}
+.f-check{display:flex;align-items:center;gap:10px;cursor:pointer;flex:1;font-size:13px}
+.f-info{flex:none;direction:ltr;font-variant-numeric:tabular-nums;font-weight:500;font-size:13px}
+.sw{width:30px;height:30px;padding:3px;border:1px solid var(--line-strong);border-radius:6px;background:var(--bg);cursor:pointer;flex:none}
+.sw i{display:block;width:100%;height:100%;border-radius:3px}
+.sw:hover{border-color:var(--muted)}
+.seg{display:flex;border:1px solid var(--line-strong);border-radius:6px;overflow:hidden}
+.seg button{width:30px;height:28px;border:0;background:none;cursor:pointer;color:var(--tool);display:grid;place-items:center}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button:hover{background:var(--surface)}
+.seg button[aria-pressed="true"]{background:var(--accent-soft);color:var(--accent)}
+.seg svg{width:20px;height:12px}
+.p-foot{display:flex;gap:8px;padding:12px 14px;border-top:1px solid var(--line)}
+.p-foot button{border:1px solid var(--line-strong);background:var(--bg);padding:7px 12px;border-radius:7px;cursor:pointer;font-size:13px;transition:background .15s var(--ease)}
+.p-foot button:hover{background:var(--surface)}
+.p-foot .primary{margin-right:auto;background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:500}
+.p-foot .primary:hover{background:var(--accent);filter:brightness(1.08)}
+.p-foot .done{color:var(--up)}
+
+footer{display:flex;align-items:center;gap:12px;padding:0 12px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);min-width:0}
+.hint{direction:rtl;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;text-align:right;order:2}
+.fbtns{display:flex;gap:2px;order:1}
+.fbtn{border:0;background:none;height:24px;min-width:26px;padding:0 6px;border-radius:5px;cursor:pointer;color:var(--muted);font-size:12px;font-weight:600}
+.fbtn:hover{background:var(--surface);color:var(--text)}
+.fbtn[aria-pressed="true"]{color:var(--accent)}
+.clock{font-variant-numeric:tabular-nums;order:0}
+
+@media (max-width:760px){
+  header{gap:8px;padding:0 8px}
+  .sym small,.quote .chg,.vsep{display:none}
+  .app{grid-template-columns:44px 1fr}
+  .tool{width:36px;height:36px}
+  .tip{display:none}
+  .panel{left:8px;right:8px;top:auto;bottom:8px;width:auto;max-height:62%}
+  .clock{display:none}
+  .fb{width:30px;height:30px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="sym"><div class="mark">Zo</div><b>ZOD/USDT</b><small>Zo Exchange · داده آزمایشی</small></div>
+    <nav class="tfs" id="tfs" aria-label="تایم‌فریم"></nav>
+    <div class="vsep"></div>
+    <button class="hbtn ind" id="emaBtn" aria-pressed="true"><span class="dot"></span>EMA 20</button>
+    <div class="quote"><span class="px" id="qPx">0</span><span class="chg" id="qChg"></span></div>
+    <button class="hbtn theme" id="themeBtn" aria-label="تم شب / روز"><span class="i-moon"><i data-lucide="moon"></i></span><span class="i-sun"><i data-lucide="sun"></i></span></button>
+  </header>
+
+  <aside class="toolbar" id="toolbar" aria-label="ابزارها">
+    <button class="tool" data-tool="cursor" data-tip="نشانگر (V)" aria-pressed="true"><i data-lucide="mouse-pointer-2"></i></button>
+    <button class="tool" data-tool="cross" data-tip="کراس‌هیر (C)"><i data-lucide="crosshair"></i></button>
+    <div class="sep"></div>
+    <button class="tool" data-tool="trend" data-tip="خط روند (T)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5.5 18.5 18.5 5.5"/><circle cx="4.5" cy="19.5" r="2"/><circle cx="19.5" cy="4.5" r="2"/></svg></button>
+    <button class="tool" data-tool="hline" data-tip="خط افقی (H)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2.5 12h7m5 0h7"/><circle cx="12" cy="12" r="2.2"/></svg></button>
+    <button class="tool" data-tool="rect" data-tip="مستطیل (R)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="6" width="14" height="12" rx="0.5"/><rect x="3" y="4" width="4" height="4" rx="1" fill="var(--bg)"/><rect x="17" y="16" width="4" height="4" rx="1" fill="var(--bg)"/></svg></button>
+    <button class="tool" data-tool="text" data-tip="متن (X)"><i data-lucide="type"></i></button>
+    <div class="sep"></div>
+    <button class="tool" data-tool="long" data-tip="پوزیشن لانگ (L)">
+      <svg viewBox="0 0 24 24"><rect x="3.5" y="3" width="17" height="10" rx="1.5" fill="var(--up-soft)" stroke="var(--up)" stroke-width="1.4"/><rect x="3.5" y="13" width="17" height="7.5" rx="1.5" fill="var(--down-soft)" stroke="var(--down)" stroke-width="1.4"/><path d="M3.5 13h17" stroke="currentColor" stroke-width="1.6"/><path d="M12 10.5V6m-2.2 2.2L12 6l2.2 2.2" fill="none" stroke="var(--up)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button class="tool" data-tool="short" data-tip="پوزیشن شورت (S)">
+      <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="7.5" rx="1.5" fill="var(--down-soft)" stroke="var(--down)" stroke-width="1.4"/><rect x="3.5" y="11" width="17" height="10" rx="1.5" fill="var(--up-soft)" stroke="var(--up)" stroke-width="1.4"/><path d="M3.5 11h17" stroke="currentColor" stroke-width="1.6"/><path d="M12 13.5V18m-2.2-2.2L12 18l2.2-2.2" fill="none" stroke="var(--up)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <div class="sep"></div>
+    <button class="tool" data-tool="measure" data-tip="خط‌کش (U یا Shift + کشیدن)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><path d="M2.8 16.2 16.2 2.8l5 5L7.8 21.2z"/><path d="M6.5 12.5 8.6 14.6M9.5 9.5l1.4 1.4M12.5 6.5l2.1 2.1M15.5 3.5l1.4 1.4"/></svg></button>
+    <button class="tool" id="magnet" data-tip="آهنربا: چسبیدن به OHLC (M)"><i data-lucide="magnet"></i></button>
+    <button class="tool" id="undo" data-tip="برگشت (Ctrl+Z)"><i data-lucide="undo-2"></i></button>
+    <button class="tool" id="clearAll" data-tip="حذف همه ترسیم‌ها"><i data-lucide="trash-2"></i></button>
+  </aside>
+
+  <main class="chart" id="chartWrap">
+    <canvas id="cv"></canvas>
+    <div class="legend" id="legend"></div>
+    <div class="ftb" id="ftb" hidden role="toolbar" aria-label="تنظیمات سریع ترسیم"></div>
+
+    <aside class="panel" id="panel" hidden aria-label="تنظیمات ترسیم">
+      <div class="p-head"><b id="pTitle"></b><span class="chip" id="pChip" hidden></span><button class="x" id="pClose" aria-label="بستن">×</button></div>
+      <nav class="p-tabs" id="pTabs" role="tablist"></nav>
+      <div class="p-body" id="pBody"></div>
+      <div class="p-foot"><button id="pDefault">ذخیره به‌عنوان پیش‌فرض</button><button class="primary" id="pOk">تأیید</button></div>
+    </aside>
+  </main>
+
+  <footer>
+    <span class="clock" id="clock"></span>
+    <div class="fbtns">
+      <button class="fbtn" id="zOut" aria-label="کوچک‌نمایی">−</button>
+      <button class="fbtn" id="zIn" aria-label="بزرگ‌نمایی">+</button>
+      <button class="fbtn" id="autoBtn" aria-pressed="true" title="مقیاس خودکار قیمت">A</button>
+      <button class="fbtn" id="goLive" title="برو به آخرین کندل">⇥</button>
+    </div>
+    <span class="hint" id="hint"></span>
+  </footer>
+</div>
+<div class="tip" id="tip"></div>
+<div class="pop" id="pop" hidden></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+const cv = $('#cv'), ctx = cv.getContext('2d'), wrap = $('#chartWrap');
+const AR = 78, AB = 28;
+let W = 0, H = 0, DPR = 1;
+
+/* ---------- color helpers ---------- */
+const hexRgb = h => { h = h.replace('#',''); return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)]; };
+const rgba = (h,a) => { const [r,g,b] = hexRgb(h); return `rgba(${r},${g},${b},${a})`; };
+const toHex = (r,g,b) => '#' + [r,g,b].map(v => Math.round(clamp(v,0,255)).toString(16).padStart(2,'0')).join('');
+const mix = (h,t,k) => { const a = hexRgb(h), b = hexRgb(t); return toHex(a[0]+(b[0]-a[0])*k, a[1]+(b[1]-a[1])*k, a[2]+(b[2]-a[2])*k); };
+const inkOn = h => { const [r,g,b] = hexRgb(h); return (0.2126*r+0.7152*g+0.0722*b)/255 > 0.6 ? '#1b1e24' : '#fcfdfd'; };
+const BASES = ['#e0474c','#f08c2e','#e8c547','#5bb75a','#1a9c86','#2bb3c0','#3d5ce0','#8a45d6','#d6458f'];
+const GRAYS = ['#fbfbfc','#e6e8ec','#c9cdd4','#a6acb7','#838a96','#626874','#454a54','#2b2f37','#16181d'];
+const PALETTE = [GRAYS, ...[['#fbfbfc',0.72],['#fbfbfc',0.45],[null,0],['#101216',0.28],['#101216',0.5]].map(([t,k]) => BASES.map(b => t ? mix(b,t,k) : b))];
+
+const THEMES = {
+  light:{ bg:'#fbfbfc', grid:'#eff1f4', border:'#e2e5ea', text:'#687080', textStrong:'#20242d',
+    up:'#1a9c86', down:'#e0474c', upVol:'rgba(26,156,134,0.22)', downVol:'rgba(224,71,76,0.2)',
+    accent:'#3553d4', sel:'rgba(53,83,212,0.12)', cross:'#9aa1ad', tagDark:'#262b35', on:'#fcfdfd',
+    entry:'#6f7683', pending:'#7b8290', ema:'#8a45d6', soft:0.13, strong:0.30 },
+  dark:{ bg:'#13161d', grid:'#1c2029', border:'#2a2f3a', text:'#8b92a1', textStrong:'#dfe3ea',
+    up:'#2fb39b', down:'#f0585c', upVol:'rgba(47,179,155,0.25)', downVol:'rgba(240,88,92,0.24)',
+    accent:'#7c93ff', sel:'rgba(124,147,255,0.16)', cross:'#5d6574', tagDark:'#3b4250', on:'#f4f6f9',
+    entry:'#9aa1ae', pending:'#5e6573', ema:'#b58cf5', soft:0.15, strong:0.33 }
+};
+let theme = 'light';
+try { theme = localStorage.getItem('zo-chart-theme') || 'light'; } catch(e){}
+let C = THEMES[theme];
+document.documentElement.dataset.theme = theme;
+const F_AX = '12px system-ui, -apple-system, "Segoe UI", sans-serif';
+const F_FA = '500 12px Vazirmatn, system-ui, sans-serif';
+const LRI = s => '\u2066' + s + '\u2069';
+const RTL_RE = /[\u0590-\u08FF\uFB1D-\uFEFC]/;
+const colorOf = c => c || C.textStrong;
+
+/* ---------- drawing defaults (templates) ---------- */
+const SIZES = [10,11,12,14,16,20,24,28,32,40];
+const BASE_DEF = {
+  trend:{color:'#3d5ce0', width:2, style:'solid', extL:false, extR:false, stats:false, text:'', textSize:13},
+  rect:{color:'#3d5ce0', width:1, style:'solid', fill:'#3d5ce0', fillA:0.12, fillOn:true, extL:false, extR:false, mid:false, text:'', textColor:null, textSize:13, vAlign:'middle'},
+  text:{color:null, size:16, bold:false, italic:false, bgOn:false, bg:'#3d5ce0', bgA:0.15, borderOn:false, border:'#3d5ce0'},
+  hline:{color:'#c77d12', width:1, style:'solid', label:true, text:''},
+  long:{account:10000, riskMode:'%', risk:1, tpColor:'#1a9c86', slColor:'#e0474c', always:false, compact:false},
+  short:{account:10000, riskMode:'%', risk:1, tpColor:'#1a9c86', slColor:'#e0474c', always:false, compact:false}
+};
+let DEF = JSON.parse(JSON.stringify(BASE_DEF));
+try { const s = JSON.parse(localStorage.getItem('zo-chart-defs') || '{}'); for(const k in s) DEF[k] = Object.assign(DEF[k], s[k]); } catch(e){}
+
+/* ---------- data ---------- */
+const TFS = {'1m':60,'5m':300,'15m':900,'1h':3600,'4h':14400,'1D':86400};
+let tf = '15m', tfSec = 900, bars = [];
+function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gauss(r){let u=0,v=0;while(!u)u=r();while(!v)v=r();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)}
+function gen(n){
+  const r = mulberry(tfSec*7+13);
+  const sig = 0.0036*Math.sqrt(tfSec/900);
+  const end = Math.floor(Date.now()/1000/tfSec)*tfSec;
+  const closes = new Array(n); let p = 1842.35, drift = 0, regime = 0;
+  for(let k=n-1;k>=0;k--){
+    closes[k] = p;
+    if(regime-- <= 0){ drift = (r()-0.5)*sig*0.7; regime = 25 + (r()*90|0); }
+    p = p / Math.exp(drift + sig*(0.55+r()*0.9)*gauss(r));
+  }
+  bars = [];
+  for(let k=0;k<n;k++){
+    const c = closes[k], o = k ? closes[k-1] : c*(1 - sig*0.4*gauss(r));
+    const span = Math.abs(c-o) + c*sig*0.3;
+    const h = Math.max(o,c) + r()*span*0.75, l = Math.min(o,c) - r()*span*0.75;
+    const v = (700 + r()*1500) * (1 + Math.abs(c-o)/c/sig*1.1) * Math.sqrt(tfSec/900);
+    bars.push({t:end-(n-1-k)*tfSec,o,h,l,c,v});
+  }
+}
+const I = t => (t - bars[0].t)/tfSec;
+const T = i => bars[0].t + Math.round(i)*tfSec;
+
+let showEma = true, ema = [];
+const EMA_LEN = 20;
+function calcEma(){
+  const n = bars.length, k = 2/(EMA_LEN+1);
+  ema = new Array(n).fill(null);
+  if(n < EMA_LEN) return;
+  let s = 0; for(let i=0;i<EMA_LEN;i++) s += bars[i].c;
+  ema[EMA_LEN-1] = s/EMA_LEN;
+  for(let i=EMA_LEN;i<n;i++) ema[i] = bars[i].c*k + ema[i-1]*(1-k);
+}
+
+/* ---------- view ---------- */
+const view = {barW:8, right:0, auto:true, pMin:0, pMax:1};
+const pw = () => W - AR, ph = () => H - AB;
+const xOf = i => pw() - (view.right - i)*view.barW;
+const iOf = x => view.right - (pw() - x)/view.barW;
+const yOf = p => (view.pMax - p)/(view.pMax - view.pMin)*ph();
+const pOf = y => view.pMax - y/ph()*(view.pMax - view.pMin);
+function clampView(){
+  view.barW = clamp(view.barW, 1.2, 64);
+  view.right = clamp(view.right, 8, bars.length - 1 + (pw()/view.barW)*0.85);
+}
+function autoScale(){
+  if(!view.auto) return;
+  const a = Math.max(0, Math.floor(iOf(0))), b = Math.min(bars.length-1, Math.ceil(view.right));
+  if(a > b) return;
+  let hi = -Infinity, lo = Infinity;
+  for(let i=a;i<=b;i++){ if(bars[i].h>hi) hi=bars[i].h; if(bars[i].l<lo) lo=bars[i].l; }
+  const r = (hi-lo) || hi*0.01;
+  view.pMax = hi + r*0.09; view.pMin = lo - r*0.13;
+}
+function nice(raw){const e=Math.pow(10,Math.floor(Math.log10(raw)));const f=raw/e;return (f<1.5?1:f<3?2:f<7?5:10)*e}
+
+/* ---------- drawings ---------- */
+let drawings = [], selected = null, hovered = null, tool = 'cursor', magnet = false;
+let drag = null, placing = null, history = [], measure = null;
+let uidN = 1; const uid = () => uidN++;
+const isPos = d => d && (d.type === 'long' || d.type === 'short');
+function commit(){ history.push(JSON.stringify(drawings)); if(history.length > 80) history.shift(); }
+let commitT = 0; const commitSoon = () => { clearTimeout(commitT); commitT = setTimeout(commit, 350); };
+function undo(){
+  if(history.length < 2) return;
+  history.pop();
+  drawings = JSON.parse(history[history.length-1]);
+  select(null); placing = null; req();
+}
+function newDrawing(type, base){
+  const d = Object.assign({id:uid(), type, locked:false}, JSON.parse(JSON.stringify(DEF[type])), base);
+  drawings.push(d); return d;
+}
+const getP = (o,p) => p.split('.').reduce((a,k) => a == null ? a : a[k], o);
+const setP = (o,p,v) => { const ks = p.split('.'); let a = o; for(let i=0;i<ks.length-1;i++) a = a[ks[i]]; a[ks[ks.length-1]] = v; };
+
+function posStats(d){
+  const long = d.type === 'long';
+  const risk = Math.abs(d.entry - d.sl), reward = Math.abs(d.tp - d.entry);
+  const riskAmt = d.riskMode === '$' ? d.risk : d.account*d.risk/100;
+  const qty = risk > 0 ? riskAmt/risk : 0;
+  const rr = risk > 0 ? reward/risk : 0;
+  const last = bars.length - 1;
+  let si = Math.round(I(d.t0)), ei = Math.round(I(d.t1));
+  let status = 'pending', exitI = si, exitP = d.entry;
+  if(si <= last && ei >= 0){
+    si = Math.max(0, si);
+    const end = Math.min(ei, last);
+    status = 'open'; exitI = end; exitP = bars[end].c;
+    for(let k=si+1;k<=end;k++){
+      const b = bars[k];
+      const hitS = long ? b.l <= d.sl : b.h >= d.sl;
+      const hitT = long ? b.h >= d.tp : b.l <= d.tp;
+      if(hitS){ status='sl'; exitI=k; exitP=d.sl; break; }
+      if(hitT){ status='tp'; exitI=k; exitP=d.tp; break; }
+    }
+    if(status === 'open' && ei < last) status = 'closed';
+  }
+  const pnl = (long?1:-1)*(exitP - d.entry)*qty;
+  return {long,risk,reward,qty,rr,status,exitI,exitP,pnl,si};
+}
+const STATUS = {open:'باز', tp:'هدف خورد', sl:'استاپ خورد', closed:'بسته شد (پایان زمان)', pending:'در انتظار'};
+
+function pointAt(x,y){
+  const i = Math.round(iOf(x)); let p = pOf(y);
+  if(magnet && bars[i]){
+    let best = p, bd = Infinity;
+    for(const v of [bars[i].o,bars[i].h,bars[i].l,bars[i].c]){ const dd = Math.abs(yOf(v)-y); if(dd<bd){bd=dd;best=v;} }
+    if(bd < 40) p = best;
+  }
+  return {i, t:T(i), p};
+}
+function posGeom(d){ return {x0:xOf(I(d.t0)), x1:xOf(I(d.t1)), yE:yOf(d.entry), yT:yOf(d.tp), yS:yOf(d.sl)}; }
+const textFont = d => `${d.italic?'italic ':''}${d.bold?700:500} ${d.size}px Vazirmatn, system-ui, sans-serif`;
+function textBox(d){
+  ctx.font = textFont(d);
+  const lines = (d.s || ' ').split('\n'), lh = d.size*1.35;
+  let w = 0; for(const l of lines) w = Math.max(w, ctx.measureText(l || ' ').width);
+  return {x:xOf(I(d.t)), y:yOf(d.p), w, h:lines.length*lh, lines, lh};
+}
+function segPts(d){
+  const ax=xOf(I(d.a.t)), ay=yOf(d.a.p), bx=xOf(I(d.b.t)), by=yOf(d.b.p);
+  let x1=ax,y1=ay,x2=bx,y2=by; const dx=bx-ax, dy=by-ay, L=Math.hypot(dx,dy);
+  if(L > 0.5){ const k = 1e4/L; if(d.extL){ x1=ax-dx*k; y1=ay-dy*k; } if(d.extR){ x2=bx+dx*k; y2=by+dy*k; } }
+  return {ax,ay,bx,by,x1,y1,x2,y2};
+}
+function rectBox(d){
+  const ax=xOf(I(d.a.t)), ay=yOf(d.a.p), bx=xOf(I(d.b.t)), by=yOf(d.b.p);
+  let xl = Math.min(ax,bx), xr = Math.max(ax,bx);
+  if(d.extL) xl = 0; if(d.extR) xr = pw();
+  return {ax,ay,bx,by,xl,xr,yt:Math.min(ay,by),yb:Math.max(ay,by)};
+}
+function distSeg(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay,l=dx*dx+dy*dy;let t=l?((px-ax)*dx+(py-ay)*dy)/l:0;t=clamp(t,0,1);return Math.hypot(px-(ax+t*dx),py-(ay+t*dy))}
+const near = (mx,my,x,y,r=7) => Math.abs(mx-x)<=r && Math.abs(my-y)<=r;
+function hitTest(mx,my){
+  for(let k=drawings.length-1;k>=0;k--){
+    const d = drawings[k];
+    if(isPos(d)){
+      const g = posGeom(d);
+      if(!d.locked) for(const [part,x,y] of [['tp',g.x0,g.yT],['sl',g.x0,g.yS],['entry',g.x0,g.yE],['end',g.x1,g.yE]])
+        if(near(mx,my,x,y)) return {d,part};
+      const xl=Math.min(g.x0,g.x1), xr=Math.max(g.x0,g.x1), yt=Math.min(g.yT,g.yS), yb=Math.max(g.yT,g.yS);
+      if(mx>=xl && mx<=xr && my>=yt && my<=yb) return {d,part:'body'};
+    } else if(d.type === 'trend'){
+      const s = segPts(d);
+      if(near(mx,my,s.ax,s.ay)) return {d,part:'p1'};
+      if(near(mx,my,s.bx,s.by)) return {d,part:'p2'};
+      if(distSeg(mx,my,s.x1,s.y1,s.x2,s.y2) <= 5) return {d,part:'body'};
+    } else if(d.type === 'rect'){
+      const r = rectBox(d);
+      if(near(mx,my,r.ax,r.ay)) return {d,part:'p1'};
+      if(near(mx,my,r.bx,r.by)) return {d,part:'p2'};
+      if(near(mx,my,r.ax,r.by)) return {d,part:'p3'};
+      if(near(mx,my,r.bx,r.ay)) return {d,part:'p4'};
+      if(mx>=r.xl-4 && mx<=r.xr+4 && my>=r.yt-4 && my<=r.yb+4) return {d,part:'body'};
+    } else if(d.type === 'text'){
+      const b = textBox(d);
+      if(mx>=b.x-6 && mx<=b.x+b.w+6 && my>=b.y-5 && my<=b.y+b.h+5) return {d,part:'body'};
+    } else if(d.type === 'hline'){
+      if(Math.abs(my - yOf(d.p)) <= 5) return {d,part:'body'};
+    }
+  }
+  return null;
+}
+function applyEdit(dr,x,y){
+  const d = dr.d, o = dr.orig;
+  const di = Math.round((x - dr.x0)/view.barW), dp = pOf(y) - pOf(dr.y0), pt = pointAt(x,y);
+  if(Math.abs(x-dr.x0)+Math.abs(y-dr.y0) > 2) dr.moved = true;
+  if(d.type === 'hline'){ d.p = magnet ? pt.p : o.p + dp; return; }
+  if(d.type === 'text'){ d.t = o.t + di*tfSec; d.p = o.p + dp; return; }
+  if(d.type === 'trend' || d.type === 'rect'){
+    switch(dr.part){
+      case 'p1': d.a = {t:pt.t,p:pt.p}; break;
+      case 'p2': d.b = {t:pt.t,p:pt.p}; break;
+      case 'p3': d.a = {t:pt.t,p:d.a.p}; d.b = {t:d.b.t,p:pt.p}; break;
+      case 'p4': d.b = {t:pt.t,p:d.b.p}; d.a = {t:d.a.t,p:pt.p}; break;
+      default: d.a = {t:o.a.t+di*tfSec, p:o.a.p+dp}; d.b = {t:o.b.t+di*tfSec, p:o.b.p+dp};
+    }
+    return;
+  }
+  const long = d.type === 'long', eps = (view.pMax - view.pMin)*0.002;
+  switch(dr.part){
+    case 'body': d.t0=o.t0+di*tfSec; d.t1=o.t1+di*tfSec; d.entry=o.entry+dp; d.tp=o.tp+dp; d.sl=o.sl+dp; break;
+    case 'tp': d.tp = long ? Math.max(pt.p, d.entry+eps) : Math.min(pt.p, d.entry-eps); break;
+    case 'sl': d.sl = long ? Math.min(pt.p, d.entry-eps) : Math.max(pt.p, d.entry+eps); break;
+    case 'entry': {
+      d.t0 = Math.min(pt.t, d.t1 - tfSec);
+      const lo = Math.min(d.tp,d.sl)+eps, hi = Math.max(d.tp,d.sl)-eps;
+      d.entry = clamp(pt.p, lo, hi); break;
+    }
+    case 'end': d.t1 = Math.max(pt.t, d.t0 + tfSec); break;
+  }
+}
+
+/* ---------- formatting ---------- */
+const fP = v => v.toFixed(2);
+const money = v => (v<0?'-':'') + '$' + Math.abs(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fQty = v => v >= 100 ? v.toFixed(1) : v.toFixed(3);
+const fVol = v => v>=1e6 ? (v/1e6).toFixed(2)+'M' : v>=1e3 ? (v/1e3).toFixed(1)+'K' : v.toFixed(0);
+const MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DAY = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const p2 = n => String(n).padStart(2,'0');
+function fmtDur(s){ const d=Math.floor(s/86400), h=Math.floor(s%86400/3600), m=Math.floor(s%3600/60);
+  if(d) return d+'d'+(h?' '+h+'h':''); if(h) return h+'h'+(m?' '+m+'m':''); return m+'m'; }
+function tLabel(t){
+  const d = new Date(t*1000);
+  if(tfSec >= 86400) return d.getDate() === 1 ? MON[d.getMonth()] : String(d.getDate());
+  if(d.getHours()===0 && d.getMinutes()===0) return d.getDate()+' '+MON[d.getMonth()];
+  return p2(d.getHours())+':'+p2(d.getMinutes());
+}
+function tFull(t){
+  const d = new Date(t*1000);
+  const s = DAY[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+" '"+String(d.getFullYear()).slice(2);
+  return tfSec >= 86400 ? s : s+'  '+p2(d.getHours())+':'+p2(d.getMinutes());
+}
+const toLocal = t => { const d = new Date(t*1000); return `${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}T${p2(d.getHours())}:${p2(d.getMinutes())}`; };
+const fromLocal = s => { const t = new Date(s).getTime()/1000; return isFinite(t) ? bars[0].t + Math.round((t-bars[0].t)/tfSec)*tfSec : null; };
+
+/* ---------- render ---------- */
+let raf = 0, mouse = {x:-1,y:-1,in:false};
+const req = () => { if(!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); };
+function rr(x,y,w,h,r){ ctx.beginPath(); if(ctx.roundRect) ctx.roundRect(x,y,w,h,r); else ctx.rect(x,y,w,h); }
+function tag(cx,y,lines,bg,where,fg){
+  ctx.font = F_FA; ctx.direction = 'rtl';
+  const lh = 17; let w = 0;
+  for(const l of lines) w = Math.max(w, ctx.measureText(l).width);
+  w += 20; const h = lines.length*lh + 8;
+  const top = where==='above' ? y-h-6 : where==='below' ? y+6 : y-h/2;
+  rr(cx-w/2, top, w, h, 4); ctx.fillStyle = bg; ctx.fill();
+  ctx.fillStyle = fg || inkOn(bg.startsWith('#') ? bg : '#262b35'); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  lines.forEach((l,k) => ctx.fillText(l, cx, top+4+lh/2+k*lh+0.5));
+  ctx.direction = 'ltr';
+}
+function handle(x,y,round){
+  ctx.setLineDash([]);
+  ctx.fillStyle = C.bg; ctx.strokeStyle = C.accent; ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  if(round) ctx.arc(x,y,4.5,0,Math.PI*2); else ctx.rect(Math.round(x)-4.5,Math.round(y)-4.5,9,9);
+  ctx.fill(); ctx.stroke();
+}
+function axisTag(y,text,bg){
+  const PW = pw();
+  ctx.fillStyle = bg; rr(PW+1, y-10, AR-3, 20, 3); ctx.fill();
+  ctx.fillStyle = bg.startsWith('#') ? inkOn(bg) : C.on; ctx.font = F_AX; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  ctx.fillText(text, PW+9, y+0.5);
+}
+function timeBand(x0,x1){ ctx.fillStyle = C.sel; ctx.fillRect(Math.min(x0,x1), ph()+1, Math.abs(x1-x0), AB-1); }
+function lineStyle(style,w){
+  ctx.lineWidth = w;
+  ctx.setLineDash(style==='dashed' ? [w*3+3, w*2+2] : style==='dotted' ? [0.01, w*2+2.5] : []);
+  ctx.lineCap = style==='dotted' ? 'round' : 'butt';
+}
+function arrow(x1,y1,x2,y2,col){
+  ctx.strokeStyle = col; ctx.fillStyle = col; ctx.lineWidth = 1.2; ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+  const L = Math.hypot(x2-x1,y2-y1); if(L < 10) return;
+  const a = Math.atan2(y2-y1,x2-x1), s = 6;
+  ctx.beginPath(); ctx.moveTo(x2,y2);
+  ctx.lineTo(x2 - s*Math.cos(a-0.45), y2 - s*Math.sin(a-0.45));
+  ctx.lineTo(x2 - s*Math.cos(a+0.45), y2 - s*Math.sin(a+0.45)); ctx.closePath(); ctx.fill();
+}
+function drawLines(lines, x, y, lh, align, color, font){
+  ctx.font = font; ctx.fillStyle = color; ctx.textBaseline = 'middle';
+  lines.forEach((l,k) => {
+    ctx.direction = RTL_RE.test(l) ? 'rtl' : 'ltr';
+    ctx.textAlign = align;
+    ctx.fillText(l, x, y + k*lh + lh/2);
+  });
+  ctx.direction = 'ltr';
+}
+
+function drawPos(d){
+  const g = posGeom(d), s = posStats(d);
+  const xl = Math.min(g.x0,g.x1), xr = Math.max(g.x0,g.x1), w = xr - xl;
+  const active = d === selected || d === hovered || (drag && drag.d === d) || d.always;
+  ctx.fillStyle = rgba(d.tpColor, C.soft); ctx.fillRect(xl, Math.min(g.yT,g.yE), w, Math.abs(g.yT-g.yE));
+  ctx.fillStyle = rgba(d.slColor, C.soft); ctx.fillRect(xl, Math.min(g.yS,g.yE), w, Math.abs(g.yS-g.yE));
+  if(s.status !== 'pending'){
+    const xe = xOf(s.exitI), yX = yOf(s.exitP);
+    ctx.fillStyle = rgba(s.pnl >= 0 ? d.tpColor : d.slColor, C.strong);
+    ctx.fillRect(Math.max(g.x0, xl), Math.min(g.yE,yX), Math.max(0, Math.min(xe,xr)-Math.max(g.x0,xl)), Math.abs(yX-g.yE));
+    ctx.setLineDash([3,3]); ctx.strokeStyle = C.entry; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(g.x0, g.yE); ctx.lineTo(Math.min(xe,xr), yX); ctx.stroke(); ctx.setLineDash([]);
+  }
+  ctx.strokeStyle = C.entry; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(xl, Math.round(g.yE)+0.5); ctx.lineTo(xr, Math.round(g.yE)+0.5); ctx.stroke();
+
+  if(active){
+    const cx = (xl+xr)/2, e = d.entry;
+    const pct = v => (v/e*100).toFixed(2)+'%';
+    const midBg = s.status==='pending' ? C.pending : (s.pnl>=0 ? d.tpColor : d.slColor);
+    let tpL, slL, midL;
+    if(d.compact){
+      tpL = [LRI(fP(s.reward)+' ('+pct(s.reward)+')')];
+      slL = [LRI(fP(s.risk)+' ('+pct(s.risk)+')')];
+      midL = [LRI(money(s.pnl)+'  ·  R '+s.rr.toFixed(2))];
+    } else {
+      tpL = ['هدف: '+LRI(fP(s.reward)+' ('+pct(s.reward)+') '+Math.round(s.reward*100)), 'مبلغ: '+LRI(money(s.qty*s.reward))];
+      slL = ['استاپ: '+LRI(fP(s.risk)+' ('+pct(s.risk)+') '+Math.round(s.risk*100)), 'مبلغ: '+LRI(money(s.qty*s.risk))];
+      const pnlWord = (s.status==='open'||s.status==='pending') ? 'سود/زیان باز' : 'سود/زیان بسته';
+      midL = [STATUS[s.status]+' · '+pnlWord+': '+LRI(money(s.pnl)), 'مقدار: '+LRI(fQty(s.qty))+'   ریسک/ریوارد: '+LRI(s.rr.toFixed(2))];
+    }
+    tag(cx, g.yT, tpL, d.tpColor, s.long ? 'above' : 'below');
+    tag(cx, g.yS, slL, d.slColor, s.long ? 'below' : 'above');
+    tag(cx, g.yE, midL, midBg, 'center');
+  }
+  if(d === selected && !d.locked){ handle(g.x0,g.yT); handle(g.x0,g.yS); handle(g.x0,g.yE); handle(g.x1,g.yE); }
+}
+function drawTrend(d){
+  const s = segPts(d), hot = d===hovered||d===selected;
+  ctx.strokeStyle = d.color; lineStyle(d.style, d.width + (hot ? 0.4 : 0));
+  ctx.beginPath(); ctx.moveTo(s.x1,s.y1); ctx.lineTo(s.x2,s.y2); ctx.stroke(); ctx.setLineDash([]); ctx.lineCap='butt';
+  if(d.text){
+    let ang = Math.atan2(s.by-s.ay, s.bx-s.ax);
+    if(ang > Math.PI/2) ang -= Math.PI; if(ang < -Math.PI/2) ang += Math.PI;
+    ctx.save(); ctx.translate((s.ax+s.bx)/2, (s.ay+s.by)/2); ctx.rotate(ang);
+    ctx.font = `500 ${d.textSize}px Vazirmatn, system-ui, sans-serif`; ctx.fillStyle = d.color;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom'; ctx.direction = RTL_RE.test(d.text) ? 'rtl' : 'ltr';
+    ctx.fillText(d.text.replace(/\n/g,' '), 0, -5); ctx.restore(); ctx.direction = 'ltr';
+  }
+  if(d.stats){
+    const dp = d.b.p - d.a.p, nb = Math.round(I(d.b.t) - I(d.a.t)), sg = dp>=0?'+':'';
+    const ang = -Math.atan2(s.by-s.ay, s.bx-s.ax)*180/Math.PI;
+    tag(s.bx, s.by, [LRI(sg+fP(dp)+' ('+sg+(dp/d.a.p*100).toFixed(2)+'%)'), LRI(nb)+' بار، '+LRI(fmtDur(Math.abs(nb)*tfSec)), 'زاویه: '+LRI(ang.toFixed(1)+'°')], d.color, s.by < s.ay ? 'above' : 'below');
+  }
+  if(hot && !d.locked){ handle(s.ax,s.ay,true); handle(s.bx,s.by,true); }
+}
+function drawRect(d){
+  const r = rectBox(d), hot = d===hovered||d===selected;
+  const x = Math.round(r.xl)+0.5, y = Math.round(r.yt)+0.5, w = Math.round(r.xr-r.xl), h = Math.round(r.yb-r.yt);
+  if(d.fillOn){ ctx.fillStyle = rgba(d.fill, d.fillA); ctx.fillRect(x,y,w,h); }
+  ctx.strokeStyle = d.color; lineStyle(d.style, d.width + (hot ? 0.4 : 0));
+  ctx.strokeRect(x,y,w,h);
+  if(d.mid){ ctx.setLineDash([4,4]); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, y+h/2); ctx.lineTo(x+w, y+h/2); ctx.stroke(); }
+  ctx.setLineDash([]); ctx.lineCap='butt';
+  if(d.text){
+    const lines = d.text.split('\n'), lh = d.textSize*1.35, th = lines.length*lh;
+    const ty = d.vAlign==='top' ? y+6 : d.vAlign==='bottom' ? y+h-6-th : y+h/2-th/2;
+    ctx.save(); ctx.beginPath(); ctx.rect(x,y,w,h); ctx.clip();
+    drawLines(lines, x+w/2, ty, lh, 'center', colorOf(d.textColor), `500 ${d.textSize}px Vazirmatn, system-ui, sans-serif`);
+    ctx.restore();
+  }
+  if(d===selected && !d.locked){ handle(r.ax,r.ay,true); handle(r.bx,r.by,true); handle(r.ax,r.by,true); handle(r.bx,r.ay,true); }
+}
+function drawText(d){
+  if(d === editing) return;
+  const b = textBox(d), col = colorOf(d.color);
+  if(d.bgOn || d.borderOn){
+    rr(b.x-6, b.y-4, b.w+12, b.h+8, 4);
+    if(d.bgOn){ ctx.fillStyle = rgba(d.bg, d.bgA); ctx.fill(); }
+    if(d.borderOn){ ctx.strokeStyle = d.border; ctx.lineWidth = 1.2; ctx.stroke(); }
+  }
+  const rtl = RTL_RE.test(d.s);
+  drawLines(b.lines, rtl ? b.x + b.w : b.x, b.y, b.lh, rtl ? 'right' : 'left', col, textFont(d));
+  if((d===selected||d===hovered) && !d.bgOn && !d.borderOn){
+    ctx.setLineDash([3,3]); ctx.strokeStyle = C.accent; ctx.lineWidth = 1;
+    ctx.strokeRect(Math.round(b.x-6)+0.5, Math.round(b.y-4)+0.5, Math.round(b.w+12), Math.round(b.h+8)); ctx.setLineDash([]);
+  }
+}
+function drawHline(d){
+  const y = Math.round(yOf(d.p))+0.5, hot = d===hovered||d===selected;
+  ctx.strokeStyle = d.color; lineStyle(d.style, d.width + (hot ? 0.5 : 0));
+  ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(pw(),y); ctx.stroke(); ctx.setLineDash([]); ctx.lineCap='butt';
+  if(d.text){
+    ctx.font = '500 12.5px Vazirmatn, system-ui, sans-serif'; ctx.fillStyle = d.color;
+    ctx.textAlign = 'right'; ctx.textBaseline = 'bottom'; ctx.direction = RTL_RE.test(d.text) ? 'rtl' : 'ltr';
+    if(ctx.direction === 'rtl') ctx.textAlign = 'right';
+    ctx.fillText(d.text.replace(/\n/g,' '), pw()-10, y-4); ctx.direction = 'ltr';
+  }
+  if(d===selected && !d.locked) handle(pw()/2, y);
+}
+function drawMeasure(){
+  const m = measure;
+  const ax=xOf(m.a.i), ay=yOf(m.a.p), bx=xOf(m.b.i), by=yOf(m.b.p);
+  const upm = m.b.p >= m.a.p, col = upm ? C.accent : C.down;
+  const x=Math.min(ax,bx), y=Math.min(ay,by), w=Math.abs(bx-ax), h=Math.abs(by-ay);
+  ctx.fillStyle = rgba(col, 0.15); ctx.fillRect(x,y,w,h);
+  const cx = (ax+bx)/2, cy = (ay+by)/2;
+  arrow(cx, ay, cx, by, col); arrow(ax, cy, bx, cy, col);
+  const dp = m.b.p - m.a.p, sg = dp>=0 ? '+' : '', nb = m.b.i - m.a.i;
+  let vol = 0; for(let i=Math.max(0,Math.min(m.a.i,m.b.i)); i<=Math.min(bars.length-1,Math.max(m.a.i,m.b.i)); i++) vol += bars[i].v;
+  tag(cx, upm ? y : y+h, [
+    LRI(sg+fP(dp)+' ('+sg+(dp/m.a.p*100).toFixed(2)+'%) '+Math.round(dp*100)),
+    LRI(nb)+' بار، '+LRI(fmtDur(Math.abs(nb)*tfSec)),
+    'حجم: '+LRI(fVol(vol))
+  ], col, upm ? 'above' : 'below');
+}
+
+function timeTicks(){
+  const cand=[1,2,3,4,6,8,12,16,24,32,48,64,96,128,192,256,384];
+  const k = cand.find(c => c*view.barW >= 84) || 384;
+  const a = Math.floor(iOf(0)), b = Math.ceil(view.right), out = [];
+  for(let i=Math.ceil(a/k)*k;i<=b;i+=k) out.push(i);
+  return out;
+}
+
+function render(){
+  if(!W) return;
+  autoScale(); calcEma();
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+  const PW = pw(), PH = ph(), last = bars.length-1;
+  ctx.fillStyle = C.bg; ctx.fillRect(0,0,W,H);
+
+  const step = nice((view.pMax-view.pMin)/(PH/58)), pTicks = [];
+  ctx.strokeStyle = C.grid; ctx.lineWidth = 1; ctx.beginPath();
+  for(let p=Math.ceil(view.pMin/step)*step; p<=view.pMax; p+=step){ const y=Math.round(yOf(p))+0.5; ctx.moveTo(0,y); ctx.lineTo(PW,y); pTicks.push([p,y]); }
+  const tTicks = timeTicks();
+  for(const i of tTicks){ const x=Math.round(xOf(i))+0.5; ctx.moveTo(x,0); ctx.lineTo(x,PH); }
+  ctx.stroke();
+
+  ctx.save(); ctx.beginPath(); ctx.rect(0,0,PW,PH); ctx.clip();
+  const a = Math.max(0, Math.floor(iOf(0))-1), b = Math.min(last, Math.ceil(view.right));
+  let vmax = 0; for(let i=a;i<=b;i++) vmax = Math.max(vmax, bars[i].v);
+  const vh = PH*0.16, bw = Math.max(1, Math.round(view.barW*0.72)), half = Math.floor(bw/2);
+  for(let i=a;i<=b;i++){
+    const B = bars[i], x = Math.round(xOf(i)), h = B.v/vmax*vh;
+    ctx.fillStyle = B.c>=B.o ? C.upVol : C.downVol;
+    ctx.fillRect(x-half, PH-h, bw, h);
+  }
+  for(let i=a;i<=b;i++){
+    const B = bars[i], x = Math.round(xOf(i)), upc = B.c >= B.o;
+    ctx.fillStyle = upc ? C.up : C.down;
+    const yh = yOf(B.h), yl = yOf(B.l);
+    ctx.fillRect(x, Math.round(yh), 1, Math.max(1, Math.round(yl-yh)));
+    const yo = yOf(B.o), yc = yOf(B.c);
+    if(bw > 2) ctx.fillRect(x-half, Math.round(Math.min(yo,yc)), bw, Math.max(1, Math.round(Math.abs(yo-yc))));
+  }
+  if(showEma){
+    ctx.strokeStyle = C.ema; ctx.lineWidth = 1.6; ctx.lineJoin = 'round'; ctx.beginPath();
+    let started = false;
+    for(let i=a;i<=b;i++){ if(ema[i]==null) continue; const x=xOf(i)+0.5, y=yOf(ema[i]); if(!started){ctx.moveTo(x,y);started=true;} else ctx.lineTo(x,y); }
+    ctx.stroke();
+  }
+  for(const d of drawings){
+    if(isPos(d)) drawPos(d);
+    else if(d.type==='trend') drawTrend(d);
+    else if(d.type==='rect') drawRect(d);
+    else if(d.type==='text') drawText(d);
+    else drawHline(d);
+  }
+  if(measure) drawMeasure();
+  const lp = bars[last].c, ly = Math.round(yOf(lp))+0.5, lup = lp >= bars[last].o;
+  ctx.setLineDash([2,3]); ctx.strokeStyle = lup ? C.up : C.down; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(0,ly); ctx.lineTo(PW,ly); ctx.stroke(); ctx.setLineDash([]);
+  if(mouse.in && !(drag && drag.k==='pan')){
+    const ci = Math.round(iOf(mouse.x)), cx = Math.round(xOf(ci))+0.5, cy = Math.round(mouse.y)+0.5;
+    ctx.setLineDash([4,4]); ctx.strokeStyle = C.cross; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(cx,0); ctx.lineTo(cx,PH); ctx.moveTo(0,cy); ctx.lineTo(PW,cy); ctx.stroke(); ctx.setLineDash([]);
+  }
+  ctx.restore();
+
+  ctx.fillStyle = C.bg; ctx.fillRect(PW,0,AR,H); ctx.fillRect(0,PH,W,AB);
+  ctx.strokeStyle = C.border; ctx.lineWidth = 1; ctx.beginPath();
+  ctx.moveTo(PW+0.5,0); ctx.lineTo(PW+0.5,PH); ctx.moveTo(0,PH+0.5); ctx.lineTo(W,PH+0.5); ctx.stroke();
+  ctx.font = F_AX; ctx.fillStyle = C.text; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+  for(const [p,y] of pTicks) if(y>8 && y<PH-8) ctx.fillText(p.toFixed(step<1?2:step<10?1:0), PW+9, y);
+  ctx.textAlign = 'center';
+  for(const i of tTicks){ const x = xOf(i); if(x>20 && x<PW-20) ctx.fillText(tLabel(T(i)), x, PH+AB/2); }
+
+  for(const d of drawings) if(d.type==='hline' && d.label) axisTag(yOf(d.p), fP(d.p), d.color);
+  const s = selected;
+  if(isPos(s)){
+    axisTag(yOf(s.tp), fP(s.tp), s.tpColor); axisTag(yOf(s.sl), fP(s.sl), s.slColor); axisTag(yOf(s.entry), fP(s.entry), C.entry);
+    timeBand(xOf(I(s.t0)), xOf(I(s.t1)));
+  } else if(s && (s.type==='rect' || s.type==='trend')){
+    axisTag(yOf(s.a.p), fP(s.a.p), s.color); axisTag(yOf(s.b.p), fP(s.b.p), s.color);
+    timeBand(xOf(I(s.a.t)), xOf(I(s.b.t)));
+  }
+  if(measure){
+    const col = measure.b.p >= measure.a.p ? C.accent : C.down;
+    axisTag(yOf(measure.a.p), fP(measure.a.p), col); axisTag(yOf(measure.b.p), fP(measure.b.p), col);
+    timeBand(xOf(measure.a.i), xOf(measure.b.i));
+  }
+  if(showEma && ema[last]!=null) axisTag(yOf(ema[last]), fP(ema[last]), C.ema);
+  axisTag(ly, fP(lp), lup ? C.up : C.down);
+  if(mouse.in){
+    axisTag(mouse.y, fP(pOf(mouse.y)), C.tagDark);
+    const ci = Math.round(iOf(mouse.x)), txt = tFull(T(ci));
+    ctx.font = F_AX; const tw = ctx.measureText(txt).width + 16, cx = clamp(xOf(ci), tw/2, PW - tw/2);
+    ctx.fillStyle = C.tagDark; rr(cx-tw/2, PH+3, tw, AB-6, 3); ctx.fill();
+    ctx.fillStyle = C.on; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(txt, cx, PH+AB/2);
+  }
+  updateLegend(); syncAll();
+}
+
+/* ---------- legend / header ---------- */
+const legend = $('#legend');
+function updateLegend(){
+  const last = bars.length-1;
+  let i = mouse.in ? Math.round(iOf(mouse.x)) : last; i = clamp(i, 0, last);
+  const B = bars[i], ch = B.c - B.o, cls = ch >= 0 ? 'up' : 'down';
+  legend.innerHTML = `<div class="l1">ZOD / TetherUS <span>· ${tf} · Zo</span></div>
+  <div class="l2 ${cls}"><i>O</i><em>${fP(B.o)}</em><i>H</i><em>${fP(B.h)}</em><i>L</i><em>${fP(B.l)}</em><i>C</i><em>${fP(B.c)}</em><em>${ch>=0?'+':''}${fP(ch)} (${ch>=0?'+':''}${(ch/B.o*100).toFixed(2)}%)</em><i>Vol</i><em>${fVol(B.v)}</em></div>
+  ${showEma ? `<div class="l3"><i>EMA 20 close</i> <em>${ema[i]!=null ? fP(ema[i]) : '∅'}</em></div>` : ''}`;
+}
+let prevPx = 0;
+function updateHeader(){
+  const last = bars.length-1, px = bars[last].c;
+  const ref = bars[Math.max(0, last - Math.round(86400/tfSec))].c, ch = px - ref;
+  const el = $('#qPx'); el.textContent = fP(px);
+  el.className = 'px ' + (px >= prevPx ? 'up' : 'down'); prevPx = px;
+  const c = $('#qChg'); c.className = 'chg ' + (ch>=0?'up':'down');
+  c.textContent = (ch>=0?'+':'') + fP(ch) + ' (' + (ch>=0?'+':'') + (ch/ref*100).toFixed(2) + '%)';
+}
+
+/* ---------- tooltip ---------- */
+const tipEl = $('#tip');
+function tipOn(b, text, side){
+  tipEl.textContent = text; tipEl.classList.add('on');
+  const r = b.getBoundingClientRect(), t = tipEl.getBoundingClientRect();
+  if(side === 'bottom'){ tipEl.style.left = clamp(r.left + r.width/2 - t.width/2, 6, innerWidth - t.width - 6)+'px'; tipEl.style.top = (r.bottom + 8)+'px'; }
+  else { tipEl.style.left = (r.right + 10)+'px'; tipEl.style.top = (r.top + r.height/2 - t.height/2)+'px'; }
+}
+function attachTip(b, text, side){
+  const txt = () => typeof text === 'function' ? text() : text;
+  b.setAttribute('aria-label', txt());
+  b.addEventListener('mouseenter', () => tipOn(b, txt(), side));
+  b.addEventListener('mouseleave', () => tipEl.classList.remove('on'));
+  b.addEventListener('pointerdown', () => tipEl.classList.remove('on'));
+}
+document.querySelectorAll('.tool[data-tip]').forEach(b => attachTip(b, b.dataset.tip, 'right'));
+
+/* ---------- icons ---------- */
+const svg = p => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${p}</svg>`;
+const ICON = {
+  grip:'<svg viewBox="0 0 12 24" fill="currentColor"><circle cx="3.5" cy="7" r="1.3"/><circle cx="8.5" cy="7" r="1.3"/><circle cx="3.5" cy="12" r="1.3"/><circle cx="8.5" cy="12" r="1.3"/><circle cx="3.5" cy="17" r="1.3"/><circle cx="8.5" cy="17" r="1.3"/></svg>',
+  pen: svg('<path d="M14.5 4.5l5 5L9 20H4v-5z"/><path d="M12.5 6.5l5 5"/>'),
+  bucket: svg('<path d="M4.5 11.5 11 5l7 7-6.5 6.5a2 2 0 0 1-2.8 0L4.5 14.3a2 2 0 0 1 0-2.8z"/><path d="M4.5 12.5h13"/><path d="M20 15s1.5 1.9 1.5 3a1.5 1.5 0 0 1-3 0c0-1.1 1.5-3 1.5-3z"/>'),
+  letter: svg('<path d="M5 6h14M12 6v13"/>'),
+  sliders: svg('<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/>'),
+  lock: svg('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+  unlock: svg('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 7.6-1.8"/>'),
+  copy: svg('<rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/>'),
+  trash: svg('<path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/>'),
+  flip: svg('<path d="M7 20V4M4 7l3-3 3 3M17 4v16M14 17l3 3 3-3"/>'),
+  bold: svg('<path d="M7 5h6a3.5 3.5 0 0 1 0 7H7zM7 12h7.5a3.5 3.5 0 0 1 0 7H7z"/>'),
+  italic: svg('<path d="M10 5h8M6 19h8M15 5 9 19"/>'),
+  edit: svg('<path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 20h7"/>'),
+  target: svg('<path d="M12 19V6M7 11l5-5 5 5"/>'),
+  stop: svg('<path d="M12 5v13M7 13l5 5 5-5"/>')
+};
+const lineSvg = (w, st) => `<svg viewBox="0 0 44 14"><path d="M3 7h38" stroke="currentColor" stroke-width="${w}" stroke-linecap="${st==='dotted'?'round':'butt'}" ${st==='dashed'?'stroke-dasharray="6 4"':st==='dotted'?'stroke-dasharray="0.01 5"':''}/></svg>`;
+
+/* ---------- popover ---------- */
+const pop = $('#pop'); let popAnchor = null;
+function openPop(anchor, build){
+  if(popAnchor === anchor && !pop.hidden){ closePop(); return; }
+  pop.innerHTML = ''; build(pop); pop.hidden = false; popAnchor = anchor;
+  const r = anchor.getBoundingClientRect(), pr = pop.getBoundingClientRect();
+  let x = r.left, y = r.bottom + 6;
+  if(x + pr.width > innerWidth - 8) x = innerWidth - 8 - pr.width;
+  if(y + pr.height > innerHeight - 8) y = r.top - 6 - pr.height;
+  pop.style.left = Math.max(8, x)+'px'; pop.style.top = Math.max(8, y)+'px';
+}
+function closePop(){ pop.hidden = true; popAnchor = null; }
+document.addEventListener('pointerdown', e => {
+  if(pop.hidden) return;
+  if(pop.contains(e.target) || (popAnchor && popAnchor.contains(e.target))) return;
+  closePop();
+}, true);
+
+function colorPop(p, d, o){
+  if(o.on){
+    const l = document.createElement('label'); l.className = 'chk'; l.style.marginBottom = '10px';
+    const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!d[o.on];
+    cb.onchange = () => { d[o.on] = cb.checked; commit(); req(); };
+    l.append(cb, document.createTextNode('نمایش')); p.append(l);
+    o._cb = cb;
+  }
+  const grid = document.createElement('div'); grid.className = 'pal';
+  const btns = [];
+  PALETTE.forEach((row, ri) => {
+    row.forEach(c => {
+      const b = document.createElement('button'); b.style.background = c; b.dataset.c = c; b.setAttribute('aria-label', c);
+      b.onclick = () => { setP(d, o.key, c); if(o.on){ d[o.on] = true; o._cb.checked = true; } refresh(); req(); commitSoon(); };
+      grid.append(b); btns.push(b);
+    });
+    if(ri === 0){ const g = document.createElement('div'); g.className = 'gap'; grid.append(g); }
+  });
+  p.append(grid);
+  let autoBtn = null;
+  if(o.auto){
+    autoBtn = document.createElement('button'); autoBtn.className = 'pop-auto'; autoBtn.textContent = 'رنگ خودکار (هماهنگ با تم)';
+    autoBtn.onclick = () => { setP(d, o.key, null); refresh(); req(); commitSoon(); };
+    p.append(autoBtn);
+  }
+  if(o.alpha){
+    const row = document.createElement('div'); row.className = 'pop-row';
+    const rg = document.createElement('input'); rg.type = 'range'; rg.min = 0; rg.max = 100; rg.value = Math.round(d[o.alpha]*100);
+    const out = document.createElement('output'); out.textContent = rg.value + '%';
+    rg.oninput = () => { d[o.alpha] = rg.value/100; out.textContent = rg.value + '%'; req(); commitSoon(); };
+    row.append('شفافیت', rg, out); p.append(row);
+  }
+  function refresh(){
+    const cur = getP(d, o.key);
+    btns.forEach(b => b.setAttribute('aria-pressed', String(!!cur && b.dataset.c.toLowerCase() === cur.toLowerCase())));
+    if(autoBtn) autoBtn.setAttribute('aria-pressed', String(cur == null));
+  }
+  refresh();
+}
+function listPop(p, items, cur, onPick){
+  const l = document.createElement('div'); l.className = 'plist';
+  items.forEach(([v, html]) => {
+    const b = document.createElement('button'); b.innerHTML = html; b.setAttribute('aria-pressed', String(v === cur));
+    b.onclick = () => { onPick(v); closePop(); };
+    l.append(b);
+  });
+  p.append(l);
+}
+
+/* ---------- floating toolbar ---------- */
+const ftb = $('#ftb'); let ftbFor = null, ftbSyncs = [], ftbPos = null;
+const FTB = {
+  trend:[{k:'color',key:'color',icon:'pen',tip:'رنگ خط'},{k:'width'},{k:'style'}],
+  rect:[{k:'color',key:'color',icon:'pen',tip:'رنگ حاشیه'},{k:'color',key:'fill',alpha:'fillA',on:'fillOn',icon:'bucket',tip:'رنگ پس‌زمینه'},{k:'width'},{k:'style'}],
+  text:[{k:'color',key:'color',icon:'letter',tip:'رنگ متن',auto:true},{k:'size'},{k:'toggle',key:'bold',icon:'bold',tip:'پررنگ'},{k:'toggle',key:'italic',icon:'italic',tip:'ایتالیک'},{k:'color',key:'bg',alpha:'bgA',on:'bgOn',icon:'bucket',tip:'پس‌زمینه'},{k:'editText'}],
+  hline:[{k:'color',key:'color',icon:'pen',tip:'رنگ خط'},{k:'width'},{k:'style'}],
+  long:[{k:'color',key:'tpColor',icon:'target',tip:'رنگ ناحیه سود'},{k:'color',key:'slColor',icon:'stop',tip:'رنگ ناحیه ضرر'},{k:'flip'}],
+  short:[{k:'color',key:'tpColor',icon:'target',tip:'رنگ ناحیه سود'},{k:'color',key:'slColor',icon:'stop',tip:'رنگ ناحیه ضرر'},{k:'flip'}]
+};
+function fbtn(html, tip, cls){ const b = document.createElement('button'); b.className = 'fb' + (cls ? ' '+cls : ''); b.innerHTML = html; if(tip) attachTip(b, tip, 'bottom'); return b; }
+function fsep(){ const s = document.createElement('div'); s.className = 'fsep'; return s; }
+function buildFtb(){
+  closePop();
+  ftbFor = selected; ftbSyncs = []; ftb.innerHTML = '';
+  const d = selected;
+  if(!d){ ftb.hidden = true; return; }
+  ftb.hidden = false;
+  const grip = fbtn(ICON.grip, null, 'grip'); grip.setAttribute('aria-label','جابجایی نوار');
+  grip.addEventListener('pointerdown', e => {
+    grip.setPointerCapture(e.pointerId);
+    const sx = e.clientX, sy = e.clientY, l = ftb.offsetLeft, t = ftb.offsetTop;
+    const mv = ev => { ftbPos = {x:l + ev.clientX - sx, y:t + ev.clientY - sy}; placeFtb(); };
+    const up = () => { grip.removeEventListener('pointermove', mv); grip.removeEventListener('pointerup', up); };
+    grip.addEventListener('pointermove', mv); grip.addEventListener('pointerup', up);
+  });
+  ftb.append(grip);
+  for(const it of FTB[d.type]){
+    let b;
+    if(it.k === 'color'){
+      b = fbtn(ICON[it.icon], it.tip, 'has-bar');
+      const bar = document.createElement('span'); bar.className = 'bar'; b.append(bar);
+      b.onclick = () => openPop(b, p => colorPop(p, d, it));
+      ftbSyncs.push(() => { const c = colorOf(getP(d, it.key)); bar.style.background = c; bar.style.opacity = (it.on && !d[it.on]) ? 0.25 : 1; });
+    } else if(it.k === 'width'){
+      b = fbtn('', 'ضخامت خط', 'wide'); let lw = null;
+      b.onclick = () => openPop(b, p => listPop(p, [1,2,3,4].map(w => [w, lineSvg(w,'solid')+w+'px']), d.width, v => { d.width = v; commit(); req(); }));
+      ftbSyncs.push(() => { if(lw !== d.width){ lw = d.width; b.innerHTML = lineSvg(d.width,'solid') + d.width + 'px'; } });
+    } else if(it.k === 'style'){
+      b = fbtn('', 'نوع خط', 'wide'); let ls = null;
+      b.onclick = () => openPop(b, p => listPop(p, [['solid',lineSvg(2,'solid')+'ساده'],['dashed',lineSvg(2,'dashed')+'خط‌چین'],['dotted',lineSvg(2,'dotted')+'نقطه‌چین']], d.style, v => { d.style = v; commit(); req(); }));
+      ftbSyncs.push(() => { if(ls !== d.style){ ls = d.style; b.innerHTML = lineSvg(2, d.style); } });
+    } else if(it.k === 'size'){
+      b = fbtn('', 'اندازه متن', 'wide'); let lz = null;
+      b.onclick = () => openPop(b, p => listPop(p, SIZES.map(s => [s, s+'px']), d.size, v => { d.size = v; commit(); req(); }));
+      ftbSyncs.push(() => { if(lz !== d.size){ lz = d.size; b.textContent = d.size; } });
+    } else if(it.k === 'toggle'){
+      b = fbtn(ICON[it.icon], it.tip);
+      b.onclick = () => { d[it.key] = !d[it.key]; commit(); req(); };
+      ftbSyncs.push(() => b.setAttribute('aria-pressed', String(!!d[it.key])));
+    } else if(it.k === 'editText'){
+      b = fbtn(ICON.edit, 'ویرایش متن');
+      b.onclick = () => openEditor(d, false);
+    } else if(it.k === 'flip'){
+      b = fbtn(ICON.flip, () => d.type === 'long' ? 'تبدیل به شورت' : 'تبدیل به لانگ');
+      b.onclick = () => flipPos(d);
+    }
+    ftb.append(b);
+  }
+  ftb.append(fsep());
+  const set = fbtn(ICON.sliders, 'تنظیمات (دابل‌کلیک)');
+  set.onclick = () => settingsFor === d ? closeSettings() : openSettings(d);
+  ftbSyncs.push(() => set.setAttribute('aria-pressed', String(settingsFor === d)));
+  const lock = fbtn(ICON.unlock, () => d.locked ? 'باز کردن قفل' : 'قفل کردن');
+  let ll = null;
+  lock.onclick = () => { d.locked = !d.locked; commit(); req(); };
+  ftbSyncs.push(() => { if(ll !== d.locked){ ll = d.locked; lock.innerHTML = d.locked ? ICON.lock : ICON.unlock; lock.setAttribute('aria-pressed', String(d.locked)); } });
+  const cl = fbtn(ICON.copy, 'کپی (Ctrl+D)'); cl.onclick = cloneSel;
+  const del = fbtn(ICON.trash, 'حذف (Del)', 'danger'); del.onclick = removeSelected;
+  ftb.append(set, lock, cl, del);
+  ftbSyncs.forEach(f => f());
+  placeFtb();
+}
+function placeFtb(){
+  if(ftb.hidden) return;
+  const w = ftb.offsetWidth, h = ftb.offsetHeight;
+  const pos = ftbPos || {x:(pw() - w)/2, y:12};
+  ftb.style.left = clamp(pos.x, 6, Math.max(6, W - w - 6)) + 'px';
+  ftb.style.top = clamp(pos.y, 6, Math.max(6, H - h - 6)) + 'px';
+}
+
+/* ---------- settings panel ---------- */
+const panel = $('#panel');
+let settingsFor = null, settingsTab = null, binders = [];
+const NAMES = {trend:'خط روند', rect:'مستطیل', text:'متن', hline:'خط افقی', long:'پوزیشن لانگ', short:'پوزیشن شورت'};
+const SIZE_OPTS = SIZES.map(s => [s, s+'px']);
+const COORD2 = [{k:'price',key:'a.p',label:'قیمت نقطه ۱'},{k:'time',key:'a.t',label:'زمان نقطه ۱'},{k:'price',key:'b.p',label:'قیمت نقطه ۲'},{k:'time',key:'b.t',label:'زمان نقطه ۲'}];
+const vEntry = (d,v) => v > Math.min(d.tp,d.sl) && v < Math.max(d.tp,d.sl);
+const vTp = (d,v) => d.type==='long' ? v > d.entry : v < d.entry;
+const vSl = (d,v) => d.type==='long' ? v < d.entry : v > d.entry;
+function posSchema(d){ return [
+  {id:'inputs', label:'ورودی‌ها', fields:[
+    {k:'number', key:'account', label:'سرمایه حساب ($)', step:100},
+    {k:'select', key:'riskMode', label:'نوع ریسک', options:[['%','درصد از حساب'],['$','مبلغ ثابت']], after:(d,old) => {
+      if(old === d.riskMode) return;
+      d.risk = d.riskMode === '$' ? +(d.account*d.risk/100).toFixed(2) : +(d.risk/d.account*100).toFixed(3);
+      buildPanel();
+    }},
+    {k:'number', key:'risk', label:() => d.riskMode === '%' ? 'ریسک (٪)' : 'ریسک ($)', step:0.1},
+    {k:'price', key:'entry', label:'قیمت ورود', validate:vEntry},
+    {k:'price', key:'tp', label:'حد سود', validate:vTp},
+    {k:'price', key:'sl', label:'حد ضرر', validate:vSl},
+    {k:'info', label:'وضعیت', get:d => STATUS[posStats(d).status]},
+    {k:'info', label:'مقدار', get:d => fQty(posStats(d).qty)+' ZOD'},
+    {k:'info', label:'ریسک به ریوارد', get:d => '1 : '+posStats(d).rr.toFixed(2)},
+    {k:'info', label:'سود در هدف', get:d => { const s = posStats(d); return '+'+money(s.qty*s.reward); }, cls:() => 'up'},
+    {k:'info', label:'ضرر در استاپ', get:d => { const s = posStats(d); return '-'+money(s.qty*s.risk); }, cls:() => 'down'},
+    {k:'info', label:'سود/زیان فعلی', get:d => { const s = posStats(d); return (s.pnl>=0?'+':'')+money(s.pnl); }, cls:d => { const s = posStats(d); return s.status==='pending' ? '' : s.pnl>=0 ? 'up' : 'down'; }}
+  ]},
+  {id:'style', label:'سبک', fields:[
+    {k:'color', key:'tpColor', label:'رنگ ناحیه سود'},
+    {k:'color', key:'slColor', label:'رنگ ناحیه ضرر'},
+    {k:'toggle', key:'always', label:'برچسب‌ها همیشه نمایش داده بشن'},
+    {k:'toggle', key:'compact', label:'برچسب فشرده'}
+  ]},
+  {id:'coords', label:'مختصات', fields:[
+    {k:'time', key:'t0', label:'زمان شروع', validate:(d,v) => v < d.t1},
+    {k:'time', key:'t1', label:'زمان پایان', validate:(d,v) => v > d.t0}
+  ]}
+]; }
+const SCHEMA = {
+  trend: () => [
+    {id:'style', label:'سبک', fields:[
+      {k:'line', label:'خط'},
+      {k:'toggle', key:'extL', label:'ادامه خط از نقطه ۱'},
+      {k:'toggle', key:'extR', label:'ادامه خط از نقطه ۲'},
+      {k:'toggle', key:'stats', label:'نمایش آمار (قیمت، بار، زمان، زاویه)'}]},
+    {id:'text', label:'متن', fields:[{k:'textarea', key:'text', label:'متن روی خط'},{k:'select', key:'textSize', label:'اندازه متن', options:SIZE_OPTS, num:true}]},
+    {id:'coords', label:'مختصات', fields:COORD2}],
+  rect: () => [
+    {id:'style', label:'سبک', fields:[
+      {k:'line', label:'حاشیه'},
+      {k:'fill', label:'پس‌زمینه', key:'fill', alpha:'fillA', on:'fillOn'},
+      {k:'toggle', key:'mid', label:'خط وسط'},
+      {k:'toggle', key:'extL', label:'ادامه به چپ'},
+      {k:'toggle', key:'extR', label:'ادامه به راست'}]},
+    {id:'text', label:'متن', fields:[
+      {k:'textarea', key:'text', label:'متن داخل مستطیل'},
+      {k:'color', key:'textColor', label:'رنگ متن', auto:true},
+      {k:'select', key:'textSize', label:'اندازه', options:SIZE_OPTS, num:true},
+      {k:'select', key:'vAlign', label:'جای متن', options:[['top','بالا'],['middle','وسط'],['bottom','پایین']]}]},
+    {id:'coords', label:'مختصات', fields:COORD2}],
+  text: () => [
+    {id:'text', label:'متن', fields:[
+      {k:'textarea', key:'s', label:'متن'},
+      {k:'color', key:'color', label:'رنگ', auto:true},
+      {k:'select', key:'size', label:'اندازه', options:SIZE_OPTS, num:true},
+      {k:'toggle', key:'bold', label:'پررنگ'},
+      {k:'toggle', key:'italic', label:'ایتالیک'}]},
+    {id:'style', label:'سبک', fields:[
+      {k:'fill', label:'پس‌زمینه', key:'bg', alpha:'bgA', on:'bgOn'},
+      {k:'fill', label:'حاشیه', key:'border', on:'borderOn'}]},
+    {id:'coords', label:'مختصات', fields:[{k:'price', key:'p', label:'قیمت'},{k:'time', key:'t', label:'زمان'}]}],
+  hline: () => [
+    {id:'style', label:'سبک', fields:[{k:'line', label:'خط'},{k:'toggle', key:'label', label:'برچسب قیمت روی محور'}]},
+    {id:'text', label:'متن', fields:[{k:'textarea', key:'text', label:'متن روی خط'}]},
+    {id:'coords', label:'مختصات', fields:[{k:'price', key:'p', label:'قیمت'}]}],
+  long: posSchema, short: posSchema
+};
+
+function openSettings(d){ settingsFor = d; settingsTab = null; buildPanel(); req(); }
+function closeSettings(){ settingsFor = null; panel.hidden = true; binders = []; closePop(); }
+function buildPanel(){
+  const d = settingsFor; if(!d) return;
+  const tabs = SCHEMA[d.type](d);
+  if(!settingsTab || !tabs.find(t => t.id === settingsTab)) settingsTab = tabs[0].id;
+  $('#pTitle').textContent = NAMES[d.type];
+  const chip = $('#pChip');
+  chip.hidden = !isPos(d);
+  if(isPos(d)){ chip.textContent = d.type === 'long' ? 'Long' : 'Short'; chip.className = 'chip ' + d.type; }
+  const nav = $('#pTabs'); nav.innerHTML = '';
+  tabs.forEach(t => {
+    const b = document.createElement('button'); b.textContent = t.label; b.setAttribute('role','tab');
+    b.setAttribute('aria-selected', String(t.id === settingsTab));
+    b.onclick = () => { settingsTab = t.id; buildPanel(); };
+    nav.append(b);
+  });
+  const body = $('#pBody'); body.innerHTML = ''; binders = [];
+  tabs.find(t => t.id === settingsTab).fields.forEach(f => body.append(fieldEl(d, f)));
+  $('#pDefault').textContent = 'ذخیره به‌عنوان پیش‌فرض'; $('#pDefault').classList.remove('done');
+  panel.hidden = false;
+  binders.forEach(f => f());
+}
+function mk(tag, cls, text){ const e = document.createElement(tag); if(cls) e.className = cls; if(text != null) e.textContent = text; return e; }
+function swatch(d, o){
+  const b = mk('button','sw'); const i = mk('i'); b.append(i); b.setAttribute('aria-label','انتخاب رنگ');
+  b.onclick = () => openPop(b, p => colorPop(p, d, o));
+  binders.push(() => {
+    const c = colorOf(getP(d, o.key)), a = o.alpha ? Math.max(d[o.alpha], 0.04) : 1;
+    i.style.background = `linear-gradient(${rgba(c,a)},${rgba(c,a)}), repeating-conic-gradient(#c9cdd4 0 25%, #f4f5f7 0 50%) 0 0/8px 8px`;
+    b.style.opacity = (o.on && !d[o.on]) ? 0.45 : 1;
+  });
+  return b;
+}
+function seg(d, key, vals, render, tipFn){
+  const s = mk('div','seg'); const bs = [];
+  vals.forEach(v => {
+    const b = mk('button'); b.innerHTML = render(v); b.setAttribute('aria-label', tipFn ? tipFn(v) : String(v));
+    b.onclick = () => { d[key] = v; commit(); req(); };
+    s.append(b); bs.push([b,v]);
+  });
+  binders.push(() => bs.forEach(([b,v]) => b.setAttribute('aria-pressed', String(d[key] === v))));
+  return s;
+}
+function fieldEl(d, f){
+  const row = mk('div','f-row');
+  const labTxt = typeof f.label === 'function' ? f.label() : f.label;
+  switch(f.k){
+    case 'line': {
+      row.classList.add('f-col'); row.append(mk('span','f-lab',labTxt));
+      const c = mk('div','f-ctrl');
+      c.append(swatch(d,{key:'color'}), seg(d,'width',[1,2,3,4], w => lineSvg(w,'solid'), w => w+'px'), seg(d,'style',['solid','dashed','dotted'], s => lineSvg(2,s), s => ({solid:'ساده',dashed:'خط‌چین',dotted:'نقطه‌چین'})[s]));
+      row.append(c); break;
+    }
+    case 'color': row.append(mk('span','f-lab',labTxt), swatch(d, f)); break;
+    case 'fill': {
+      const l = mk('label','f-check'); const cb = mk('input'); cb.type = 'checkbox';
+      cb.onchange = () => { d[f.on] = cb.checked; commit(); req(); };
+      binders.push(() => { cb.checked = !!d[f.on]; });
+      l.append(cb, mk('span',null,labTxt)); row.append(l, swatch(d, f)); break;
+    }
+    case 'toggle': {
+      const l = mk('label','f-check'); const cb = mk('input'); cb.type = 'checkbox';
+      cb.onchange = () => { d[f.key] = cb.checked; commit(); req(); };
+      binders.push(() => { cb.checked = !!d[f.key]; });
+      l.append(cb, mk('span',null,labTxt)); row.append(l); break;
+    }
+    case 'number': case 'price': {
+      const inp = mk('input'); inp.type = 'number'; inp.step = f.step || 0.01;
+      inp.oninput = () => {
+        const v = parseFloat(inp.value);
+        const ok = isFinite(v) && v > 0 && (!f.validate || f.validate(d, v));
+        inp.setAttribute('aria-invalid', String(!ok));
+        if(ok){ setP(d, f.key, v); req(); }
+      };
+      inp.onchange = () => { inp.removeAttribute('aria-invalid'); commit(); req(); };
+      binders.push(() => { if(document.activeElement !== inp){ const v = getP(d, f.key); inp.value = f.k === 'price' ? fP(v) : v; inp.removeAttribute('aria-invalid'); } });
+      row.append(mk('span','f-lab',labTxt), inp); break;
+    }
+    case 'time': {
+      const inp = mk('input'); inp.type = 'datetime-local'; inp.step = 60;
+      inp.onchange = () => {
+        const v = fromLocal(inp.value);
+        const ok = v != null && (!f.validate || f.validate(d, v));
+        inp.setAttribute('aria-invalid', String(!ok));
+        if(ok){ setP(d, f.key, v); inp.removeAttribute('aria-invalid'); commit(); req(); }
+      };
+      binders.push(() => { if(document.activeElement !== inp) inp.value = toLocal(getP(d, f.key)); });
+      row.append(mk('span','f-lab',labTxt), inp); break;
+    }
+    case 'select': {
+      const sel = mk('select');
+      f.options.forEach(([v,l]) => { const o = mk('option',null,l); o.value = v; sel.append(o); });
+      sel.onchange = () => { const old = getP(d, f.key); setP(d, f.key, f.num ? +sel.value : sel.value); if(f.after) f.after(d, old); commit(); req(); };
+      binders.push(() => { if(document.activeElement !== sel) sel.value = String(getP(d, f.key)); });
+      row.append(mk('span','f-lab',labTxt), sel); break;
+    }
+    case 'textarea': {
+      row.classList.add('f-col'); row.append(mk('span','f-lab',labTxt));
+      const ta = mk('textarea'); ta.dir = 'auto'; ta.placeholder = 'بنویس…';
+      ta.oninput = () => { setP(d, f.key, ta.value); req(); };
+      ta.onchange = () => commit();
+      binders.push(() => { if(document.activeElement !== ta) ta.value = getP(d, f.key) || ''; });
+      row.append(ta); break;
+    }
+    case 'info': {
+      const v = mk('span','f-info');
+      binders.push(() => { v.textContent = f.get(d); v.className = 'f-info ' + (f.cls ? f.cls(d) : ''); });
+      row.append(mk('span','f-lab',labTxt), v); break;
+    }
+  }
+  return row;
+}
+$('#pClose').onclick = closeSettings;
+$('#pOk').onclick = closeSettings;
+$('#pDefault').onclick = () => {
+  const d = settingsFor; if(!d) return;
+  const keys = Object.keys(BASE_DEF[d.type]);
+  DEF[d.type] = {}; keys.forEach(k => DEF[d.type][k] = JSON.parse(JSON.stringify(d[k])));
+  try { localStorage.setItem('zo-chart-defs', JSON.stringify(DEF)); } catch(e){}
+  const b = $('#pDefault'); b.textContent = 'ذخیره شد ✓'; b.classList.add('done');
+};
+
+function syncAll(){
+  if(selected && !drawings.includes(selected)) selected = null;
+  if(selected !== ftbFor) buildFtb(); else ftbSyncs.forEach(f => f());
+  if(settingsFor){
+    if(!drawings.includes(settingsFor) || !selected) closeSettings();
+    else if(selected !== settingsFor) openSettings(selected);
+    else binders.forEach(f => f());
+  }
+}
+
+/* ---------- text editor ---------- */
+let editing = null, editor = null;
+function openEditor(d, isNew){
+  closeEditor(false);
+  editing = d;
+  const b = textBox(d);
+  editor = document.createElement('textarea');
+  editor.className = 'txt-edit'; editor.dir = 'auto'; editor.rows = 1; editor.value = d.s || '';
+  editor.placeholder = 'متن رو بنویس…';
+  editor.style.font = textFont(d); editor.style.color = colorOf(d.color);
+  editor.style.left = (b.x - 7) + 'px'; editor.style.top = (b.y - 4) + 'px';
+  wrap.appendChild(editor);
+  const fit = () => { editor.style.height = 'auto'; editor.style.height = editor.scrollHeight + 'px'; };
+  editor.addEventListener('input', fit); fit();
+  editor.addEventListener('keydown', e => {
+    if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); closeEditor(true); }
+    else if(e.key === 'Escape'){ e.preventDefault(); if(isNew) editor.value = ''; closeEditor(!isNew || true); }
+    e.stopPropagation();
+  });
+  editor.addEventListener('blur', () => closeEditor(true));
+  setTimeout(() => { if(editor){ editor.focus(); editor.select(); } }, 0);
+  req();
+}
+function closeEditor(save){
+  if(!editing || !editor) return;
+  const d = editing, el = editor; editing = null; editor = null;
+  if(save) d.s = el.value.replace(/\s+$/,'');
+  el.remove();
+  if(!d.s){ drawings = drawings.filter(x => x !== d); if(selected === d) selected = null; }
+  commit(); req();
+}
+
+/* ---------- actions ---------- */
+const HINTS = {
+  cursor:'کلیک روی ترسیم: نوار تنظیمات · دابل‌کلیک: تنظیمات کامل · Shift+کشیدن: خط‌کش · چرخ ماوس: زوم',
+  cross:'کراس‌هیر فعاله. برای جابجایی چارت بکش.',
+  trend:'نقطه اول رو کلیک کن، بعد نقطه دوم (یا بکش). Esc لغو.',
+  hline:'روی هر قیمتی کلیک کن تا خط افقی بیفته.',
+  rect:'از یه گوشه تا گوشه مقابل بکش (یا دو بار کلیک کن).',
+  text:'هرجا کلیک کنی متن اونجا میفته. Enter ثبت، Shift+Enter خط جدید.',
+  long:'روی قیمت ورود کلیک کن. بعد دستگیره‌های حد سود، حد ضرر و انتهای باکس رو بکش.',
+  short:'روی قیمت ورود کلیک کن. بعد دستگیره‌های حد سود، حد ضرر و انتهای باکس رو بکش.',
+  measure:'بکش یا کلیک، حرکت، کلیک. فاصله قیمت، درصد، تعداد کندل، زمان و حجم رو نشون میده.'
+};
+function setTool(t){
+  tool = t;
+  document.querySelectorAll('[data-tool]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tool === t)));
+  $('#hint').textContent = HINTS[t];
+  cv.style.cursor = t==='cursor' ? 'default' : t==='text' ? 'text' : 'crosshair';
+}
+function select(d){ selected = d; req(); }
+function removeSelected(){
+  if(!selected) return;
+  drawings = drawings.filter(x => x !== selected);
+  select(null); commit();
+}
+function cloneSel(){
+  const d = selected; if(!d) return;
+  const c = JSON.parse(JSON.stringify(d)); c.id = uid(); c.locked = false;
+  const dt = Math.max(3, Math.round(30/view.barW))*tfSec;
+  if(c.type === 'hline') c.p += (view.pMax - view.pMin)*0.03;
+  if(c.t != null) c.t += dt; if(c.t0 != null){ c.t0 += dt; c.t1 += dt; }
+  if(c.a){ c.a.t += dt; c.b.t += dt; }
+  drawings.push(c); select(c); commit();
+}
+function flipPos(d){
+  if(!isPos(d)) return;
+  d.type = d.type === 'long' ? 'short' : 'long';
+  d.tp = 2*d.entry - d.tp; d.sl = 2*d.entry - d.sl;
+  if(settingsFor === d) buildPanel();
+  commit(); req();
+}
+document.querySelectorAll('[data-tool]').forEach(b => b.addEventListener('click', () => setTool(b.dataset.tool)));
+$('#magnet').onclick = () => { magnet = !magnet; $('#magnet').setAttribute('aria-pressed', String(magnet)); };
+$('#undo').onclick = undo;
+$('#clearAll').onclick = () => { if(!drawings.length) return; drawings = []; select(null); commit(); };
+
+function setTheme(t){
+  theme = t; C = THEMES[t]; document.documentElement.dataset.theme = t;
+  try { localStorage.setItem('zo-chart-theme', t); } catch(e){}
+  ftbFor = undefined; req();
+}
+$('#themeBtn').onclick = () => setTheme(theme === 'dark' ? 'light' : 'dark');
+$('#emaBtn').onclick = () => { showEma = !showEma; $('#emaBtn').setAttribute('aria-pressed', String(showEma)); req(); };
+
+/* ---------- pointer ---------- */
+function pos(e){ const r = cv.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; }
+function createPosition(type, pt){
+  const span = (view.pMax - view.pMin)*0.06, long = type === 'long';
+  const n = Math.max(10, Math.round(170/view.barW));
+  return newDrawing(type, {t0:pt.t, t1:pt.t+n*tfSec, entry:pt.p, tp: long ? pt.p+span*2 : pt.p-span*2, sl: long ? pt.p-span : pt.p+span});
+}
+cv.addEventListener('pointerdown', e => {
+  if(e.button !== 0) return;
+  const {x,y} = pos(e);
+  const PW = pw(), PH = ph();
+  if(x > PW && y < PH){ cv.setPointerCapture(e.pointerId); drag = {k:'pscale', y0:y, a:view.pMin, b:view.pMax}; view.auto = false; syncAuto(); return; }
+  if(y > PH){ cv.setPointerCapture(e.pointerId); drag = {k:'tscale', x0:x, bw:view.barW}; return; }
+  if(measure){
+    if(measure.phase === 'follow'){ measure.phase = 'done'; setTool('cursor'); req(); return; }
+    if(measure.phase === 'done'){ measure = null; req(); if(tool !== 'measure' && !e.shiftKey) return; }
+  }
+  if(placing){ placing = null; commit(); setTool('cursor'); req(); return; }
+  const pt = pointAt(x,y);
+  if(tool === 'measure' || (e.shiftKey && (tool === 'cursor' || tool === 'cross'))){
+    cv.setPointerCapture(e.pointerId);
+    measure = {a:{i:pt.i,p:pt.p}, b:{i:pt.i,p:pt.p}, phase:'drag'};
+    drag = {k:'measure', x0:x, y0:y, moved:false}; select(null); return;
+  }
+  if(tool === 'text'){
+    e.preventDefault();
+    const d = newDrawing('text', {t:pt.t, p:pt.p, s:''});
+    select(d); setTool('cursor'); openEditor(d, true); return;
+  }
+  cv.setPointerCapture(e.pointerId);
+  if(tool === 'trend' || tool === 'rect'){
+    const d = newDrawing(tool, {a:{t:pt.t,p:pt.p}, b:{t:pt.t,p:pt.p}});
+    select(d); placing = d; drag = {k:'place', d, x0:x, y0:y, moved:false}; return;
+  }
+  if(tool === 'hline'){ const d = newDrawing('hline', {p:pt.p}); select(d); commit(); setTool('cursor'); return; }
+  if(tool === 'long' || tool === 'short'){ const d = createPosition(tool, pt); select(d); commit(); setTool('cursor'); return; }
+  const h = hitTest(x,y);
+  if(h){
+    select(h.d);
+    if(!h.d.locked){ drag = {k:'edit', d:h.d, part:h.part, x0:x, y0:y, orig:JSON.parse(JSON.stringify(h.d)), moved:false}; return; }
+  } else select(null);
+  drag = {k:'pan', x0:x, y0:y, r:view.right, a:view.pMin, b:view.pMax};
+  cv.style.cursor = 'grabbing';
+});
+cv.addEventListener('pointermove', e => {
+  const {x,y} = pos(e);
+  mouse = {x, y, in: x>=0 && y>=0 && x<pw() && y<ph()};
+  if(drag){
+    switch(drag.k){
+      case 'pscale': { const f = Math.exp((y-drag.y0)*0.006), mid=(drag.a+drag.b)/2, hf=(drag.b-drag.a)/2*f; view.pMin=mid-hf; view.pMax=mid+hf; break; }
+      case 'tscale': view.barW = clamp(drag.bw*Math.exp((x-drag.x0)*0.008), 1.2, 64); clampView(); break;
+      case 'pan':
+        view.right = drag.r - (x-drag.x0)/view.barW;
+        if(!view.auto){ const dp = (y-drag.y0)/ph()*(drag.b-drag.a); view.pMin = drag.a+dp; view.pMax = drag.b+dp; }
+        clampView(); break;
+      case 'place': { const pt = pointAt(x,y); drag.d.b = {t:pt.t,p:pt.p}; if(Math.hypot(x-drag.x0,y-drag.y0) > 6) drag.moved = true; break; }
+      case 'measure': { const pt = pointAt(x,y); measure.b = {i:pt.i,p:pt.p}; if(Math.hypot(x-drag.x0,y-drag.y0) > 6) drag.moved = true; break; }
+      case 'edit': applyEdit(drag,x,y); break;
+    }
+  } else {
+    if(placing){ const pt = pointAt(x,y); placing.b = {t:pt.t,p:pt.p}; }
+    if(measure && measure.phase === 'follow'){ const pt = pointAt(x,y); measure.b = {i:pt.i,p:pt.p}; }
+    let c = tool==='cursor' ? 'default' : tool==='text' ? 'text' : 'crosshair', h = null;
+    if(x > pw() && y < ph()) c = 'ns-resize';
+    else if(y > ph()) c = 'ew-resize';
+    else if((tool==='cursor'||tool==='cross') && !placing){
+      h = hitTest(x,y);
+      if(h){
+        const p = h.part;
+        c = h.d.locked ? 'pointer' : p==='body'||p==='entry' ? 'move' : p==='end' ? 'ew-resize' : (p==='p1'||p==='p2') && h.d.type==='rect' ? 'nwse-resize' : (p==='p3'||p==='p4') ? 'nesw-resize' : p==='p1'||p==='p2' ? 'pointer' : 'ns-resize';
+      }
+    }
+    hovered = h ? h.d : null;
+    cv.style.cursor = c;
+  }
+  req();
+});
+cv.addEventListener('pointerup', () => {
+  if(!drag) return;
+  if(drag.k === 'place' && drag.moved){ placing = null; commit(); setTool('cursor'); }
+  else if(drag.k === 'measure'){ if(drag.moved){ measure.phase = 'done'; setTool('cursor'); } else measure.phase = 'follow'; }
+  else if(drag.k === 'edit' && drag.moved) commit();
+  if(drag.k === 'pan') cv.style.cursor = tool==='cursor' ? 'default' : 'crosshair';
+  drag = null; req();
+});
+cv.addEventListener('pointerleave', () => { mouse.in = false; hovered = null; req(); });
+cv.addEventListener('dblclick', e => {
+  const {x,y} = pos(e);
+  if(x > pw() && y < ph()){ view.auto = true; syncAuto(); req(); return; }
+  const h = hitTest(x,y);
+  if(!h) return;
+  if(h.d.type === 'text' && !h.d.locked) openEditor(h.d, false);
+  else { select(h.d); openSettings(h.d); }
+});
+cv.addEventListener('wheel', e => {
+  e.preventDefault();
+  if(editor) closeEditor(true);
+  const {x} = pos(e);
+  if(x > pw()){
+    const f = Math.exp(e.deltaY*0.0015), mid=(view.pMin+view.pMax)/2, hf=(view.pMax-view.pMin)/2*f;
+    view.auto = false; syncAuto(); view.pMin = mid-hf; view.pMax = mid+hf; req(); return;
+  }
+  if(Math.abs(e.deltaX) > Math.abs(e.deltaY)){ view.right += e.deltaX/view.barW; clampView(); req(); return; }
+  const i = iOf(x);
+  view.barW = clamp(view.barW*Math.exp(-e.deltaY*0.0018), 1.2, 64);
+  view.right = i + (pw()-x)/view.barW; clampView(); req();
+}, {passive:false});
+
+/* ---------- keyboard ---------- */
+document.addEventListener('keydown', e => {
+  const typing = e.target.closest && e.target.closest('input,textarea,select');
+  if(typing) return;
+  const k = e.key.toLowerCase();
+  if((e.ctrlKey||e.metaKey) && k === 'z'){ e.preventDefault(); undo(); return; }
+  if((e.ctrlKey||e.metaKey) && k === 'd'){ e.preventDefault(); cloneSel(); return; }
+  if(e.key === 'Delete' || e.key === 'Backspace'){ if(selected && !selected.locked) removeSelected(); return; }
+  if(e.key === 'Escape'){
+    if(placing){ drawings = drawings.filter(d => d !== placing); placing = null; drag = null; }
+    measure = null; closePop(); select(null); setTool('cursor'); return;
+  }
+  if(e.key === 'Enter' && selected){ if(selected.type === 'text') openEditor(selected, false); else openSettings(selected); return; }
+  if(e.ctrlKey || e.metaKey || e.altKey) return;
+  const map = {v:'cursor', c:'cross', t:'trend', h:'hline', r:'rect', x:'text', l:'long', s:'short', u:'measure'};
+  if(map[k]) setTool(map[k]);
+  if(k === 'm') $('#magnet').click();
+});
+
+/* ---------- footer ---------- */
+function syncAuto(){ $('#autoBtn').setAttribute('aria-pressed', String(view.auto)); }
+$('#autoBtn').onclick = () => { view.auto = !view.auto; syncAuto(); req(); };
+$('#zIn').onclick = () => { view.barW *= 1.25; clampView(); req(); };
+$('#zOut').onclick = () => { view.barW /= 1.25; clampView(); req(); };
+$('#goLive').onclick = () => { view.right = bars.length - 1 + 8; view.auto = true; syncAuto(); req(); };
+function tick(){ const d = new Date(); $('#clock').textContent = p2(d.getHours())+':'+p2(d.getMinutes())+':'+p2(d.getSeconds()); }
+
+/* ---------- timeframes ---------- */
+const tfNav = $('#tfs');
+Object.keys(TFS).forEach(k => {
+  const b = document.createElement('button'); b.textContent = k; b.setAttribute('aria-pressed', String(k===tf));
+  b.onclick = () => setTf(k); tfNav.appendChild(b);
+});
+function setTf(k){
+  if(editor) closeEditor(true);
+  tf = k; tfSec = TFS[k]; gen(700); measure = null;
+  view.right = bars.length - 1 + 8; view.auto = true; syncAuto();
+  tfNav.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.textContent===k)));
+  prevPx = bars[bars.length-1].c; updateHeader(); req();
+}
+
+/* ---------- live ticks ---------- */
+let tickN = 0;
+setInterval(() => {
+  const last = bars.length-1, B = bars[last];
+  const sig = 0.0036*Math.sqrt(tfSec/900)/4.5;
+  B.c = B.c*Math.exp(sig*gauss(Math.random));
+  B.h = Math.max(B.h, B.c); B.l = Math.min(B.l, B.c); B.v += Math.random()*90;
+  if(++tickN >= 22){
+    tickN = 0;
+    bars.push({t:B.t+tfSec, o:B.c, h:B.c, l:B.c, c:B.c, v:0});
+    if(view.right >= last - 1) view.right += 1;
+  }
+  updateHeader();
+  if(!editor) req();
+}, 650);
+
+/* ---------- boot ---------- */
+function resize(){
+  const r = wrap.getBoundingClientRect(); DPR = window.devicePixelRatio || 1;
+  W = r.width; H = r.height;
+  cv.width = Math.round(W*DPR); cv.height = Math.round(H*DPR);
+  cv.style.width = W+'px'; cv.style.height = H+'px';
+  clampView(); render(); placeFtb();
+}
+gen(700);
+view.right = bars.length - 1 + 8;
+(function seedDemo(){
+  const last = bars.length-1, i0 = last - 72;
+  let atr = 0; for(let i=i0-14;i<i0;i++) atr += bars[i].h - bars[i].l; atr /= 14;
+  const e = bars[i0].c;
+  newDrawing('long', {t0:bars[i0].t, t1:bars[i0].t+44*tfSec, entry:e, tp:e+atr*3.2, sl:e-atr*1.6});
+})();
+commit();
+setTool('cursor'); updateHeader(); tick(); setInterval(tick, 1000);
+new ResizeObserver(resize).observe(wrap);
+if(document.fonts) document.fonts.ready.then(req);
+</script>
+</body>
+</html>
